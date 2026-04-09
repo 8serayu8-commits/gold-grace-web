@@ -11,9 +11,9 @@ const services = [
 ];
 
 const whyUs = [
-  { icon: Award, title: "Professional & Experienced", desc: "Backed by years of industry expertise and a proven track record." },
-  { icon: ShieldCheck, title: "Trusted & Reliable", desc: "We build lasting relationships founded on transparency and integrity." },
-  { icon: TrendingUp, title: "Growth-Oriented Approach", desc: "Every strategy is designed to drive measurable, long-term results." },
+  { icon: Award, title: "Professional & Experienced", desc: "More than a decade of expertise in taxation, accounting, and business advisory." },
+  { icon: ShieldCheck, title: "Trusted & Reliable", desc: "Built on transparency, data confidentiality, and consistent results — the ProTEkSi culture." },
+  { icon: TrendingUp, title: "Growth-Oriented Approach", desc: "We are your strategic partner, not just a service provider — guiding sustainable business growth." },
 ];
 
 const Index = () => (
@@ -28,7 +28,7 @@ const Index = () => (
               Trusted Consulting Partner for Business Growth
             </h1>
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-xl">
-              Professional consulting services in business, taxation, and digital systems.
+              Professional consulting services in business, taxation, and digital systems — delivering certainty, growth, and sustainability.
             </p>
             <Link
               to="/contact"
@@ -48,7 +48,7 @@ const Index = () => (
           <div className="max-w-3xl mx-auto text-center">
             <div className="gold-divider mx-auto mb-8" />
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              JADTRA Consulting is a professional consulting firm under KKP Hakim Muhamad dan Rekan, providing strategic and reliable business solutions.
+              JADTRA Consulting is a professional consulting firm under KKP Hakim Muhamad dan Rekan, providing strategic and reliable business solutions since 2010. We combine deep expertise with a commitment to educate and empower our clients.
             </p>
           </div>
         </FadeIn>

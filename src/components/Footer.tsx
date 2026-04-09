@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import jadtraLogo from "@/assets/jadtra-logo.jpg";
 
 const Footer = () => (
   <footer className="bg-dark text-background">
@@ -6,7 +7,7 @@ const Footer = () => (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
         {/* Brand */}
         <div>
-          <h3 className="font-heading text-xl font-bold mb-2">JADTRA CONSULTING</h3>
+          <img src={jadtraLogo} alt="JADTRA Consulting" className="h-16 w-auto brightness-0 invert mb-4" />
           <p className="text-sm text-background/50">
             KKP Hakim Muhamad dan Rekan
           </p>
