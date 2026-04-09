@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import jadtraLogo from "@/assets/jadtra-logo.jpg";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -29,13 +30,8 @@ const Header = () => {
       }`}
     >
       <div className="container-narrow flex items-center justify-between h-20">
-        <Link to="/" className="flex flex-col">
-          <span className="font-heading text-xl font-bold tracking-wide text-foreground">
-            JADTRA
-          </span>
-          <span className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
-            Consulting
-          </span>
+        <Link to="/" className="flex items-center">
+          <img src={jadtraLogo} alt="JADTRA Consulting" className="h-14 w-auto" />
         </Link>
 
         {/* Desktop Nav */}
