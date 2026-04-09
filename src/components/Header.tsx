@@ -1,19 +1,23 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon, Globe } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import jadtraLogo from "@/assets/jadtra-logo.jpg";
-
-const navLinks = [
-  { label: "Home", path: "/" },
-  { label: "About", path: "/about" },
-  { label: "Services", path: "/services" },
-  { label: "Contact", path: "/contact" },
-];
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const { lang, setLang, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
+
+  const navLinks = [
+    { label: t("nav.home"), path: "/" },
+    { label: t("nav.about"), path: "/about" },
+    { label: t("nav.services"), path: "/services" },
+    { label: t("nav.contact"), path: "/contact" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -35,7 +39,7 @@ const Header = () => {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.path}
@@ -49,16 +53,52 @@ const Header = () => {
               {link.label}
             </Link>
           ))}
+
+          {/* Language Toggle */}
+          <button
+            onClick={() => setLang(lang === "en" ? "id" : "en")}
+            className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-primary transition-colors uppercase tracking-wider"
+            aria-label="Toggle language"
+          >
+            <Globe size={16} />
+            {lang === "en" ? "ID" : "EN"}
+          </button>
+
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="text-muted-foreground hover:text-primary transition-colors"
+            aria-label="Toggle theme"
+          >
+            {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+          </button>
         </nav>
 
         {/* Mobile Toggle */}
-        <button
-          className="md:hidden text-foreground"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          {menuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="md:hidden flex items-center gap-3">
+          <button
+            onClick={() => setLang(lang === "en" ? "id" : "en")}
+            className="text-xs font-medium text-muted-foreground hover:text-primary transition-colors uppercase tracking-wider flex items-center gap-1"
+            aria-label="Toggle language"
+          >
+            <Globe size={14} />
+            {lang === "en" ? "ID" : "EN"}
+          </button>
+          <button
+            onClick={toggleTheme}
+            className="text-muted-foreground hover:text-primary transition-colors"
+            aria-label="Toggle theme"
+          >
+            {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
+          </button>
+          <button
+            className="text-foreground"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Nav */}
