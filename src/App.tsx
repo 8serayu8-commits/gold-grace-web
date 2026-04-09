@@ -23,6 +23,7 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/internal" element={<InternalSystem />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
