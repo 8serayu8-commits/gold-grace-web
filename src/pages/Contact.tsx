@@ -2,14 +2,15 @@ import { useState } from "react";
 import Layout from "@/components/Layout";
 import FadeIn from "@/components/FadeIn";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Contact = () => {
+  const { t } = useLanguage();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // placeholder
-    alert("Thank you for your message. We will get back to you soon.");
+    alert(t("contact.form.success"));
     setForm({ name: "", email: "", message: "" });
   };
 
@@ -18,7 +19,7 @@ const Contact = () => {
       <section className="section-padding">
         <div className="container-narrow">
           <FadeIn>
-            <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground">Contact Us</h1>
+            <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground">{t("contact.title")}</h1>
             <div className="gold-divider mt-4" />
           </FadeIn>
         </div>
@@ -28,10 +29,10 @@ const Contact = () => {
         <div className="container-narrow">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
             <FadeIn>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Send Us a Message</h2>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-6">{t("contact.form.title")}</h2>
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">Name</label>
+                  <label className="block text-sm font-medium text-foreground mb-1.5">{t("contact.form.name")}</label>
                   <input
                     type="text"
                     required
@@ -41,7 +42,7 @@ const Contact = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">Email</label>
+                  <label className="block text-sm font-medium text-foreground mb-1.5">{t("contact.form.email")}</label>
                   <input
                     type="email"
                     required
@@ -51,7 +52,7 @@ const Contact = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">Message</label>
+                  <label className="block text-sm font-medium text-foreground mb-1.5">{t("contact.form.message")}</label>
                   <textarea
                     required
                     rows={5}
@@ -64,40 +65,38 @@ const Contact = () => {
                   type="submit"
                   className="px-8 py-3.5 bg-primary text-primary-foreground font-medium text-sm uppercase tracking-wider hover:bg-primary/90 transition-colors"
                 >
-                  Send Message
+                  {t("contact.form.submit")}
                 </button>
               </form>
             </FadeIn>
 
             <FadeIn delay={0.15}>
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Office Information</h2>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-6">{t("contact.office.title")}</h2>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <Mail className="text-primary mt-0.5" size={20} strokeWidth={1.5} />
                   <div>
-                    <p className="text-sm font-medium text-foreground">Email</p>
+                    <p className="text-sm font-medium text-foreground">{t("contact.office.email")}</p>
                     <p className="text-sm text-muted-foreground">info@jadtraconsulting.com</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <Phone className="text-primary mt-0.5" size={20} strokeWidth={1.5} />
                   <div>
-                    <p className="text-sm font-medium text-foreground">Phone</p>
+                    <p className="text-sm font-medium text-foreground">{t("contact.office.phone")}</p>
                     <p className="text-sm text-muted-foreground">+62 21 0000 0000</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <MapPin className="text-primary mt-0.5" size={20} strokeWidth={1.5} />
                   <div>
-                    <p className="text-sm font-medium text-foreground">Address</p>
+                    <p className="text-sm font-medium text-foreground">{t("contact.office.address")}</p>
                     <p className="text-sm text-muted-foreground">Jakarta, Indonesia</p>
                   </div>
                 </div>
               </div>
-
-              {/* Map Placeholder */}
               <div className="mt-10 w-full h-48 bg-muted border border-border flex items-center justify-center">
-                <span className="text-sm text-muted-foreground">Map Placeholder</span>
+                <span className="text-sm text-muted-foreground">{t("contact.office.map")}</span>
               </div>
             </FadeIn>
           </div>
