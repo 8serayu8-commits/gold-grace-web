@@ -12,11 +12,13 @@ const Header = () => {
   const { lang, setLang, t } = useLanguage();
   const { theme, toggleTheme } = useTheme();
 
-  const navLinks = [
-    { label: t("nav.home"), path: "/" },
-    { label: t("nav.about"), path: "/about" },
-    { label: t("nav.services"), path: "/services" },
-    { label: t("nav.contact"), path: "/contact" },
+  const navItems = [
+    { name: t("nav.home"), path: "/" },
+    { name: t("nav.about"), path: "/about" },
+    { name: t("nav.services"), path: "/services" },
+    { name: "Blog", path: "/blog" },
+    { name: "Kalkulator Pajak", path: "/tax-calculator" },
+    { name: t("nav.contact"), path: "/contact" },
   ];
 
   useEffect(() => {
@@ -40,17 +42,17 @@ const Header = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
+          {navItems.map((item) => (
             <Link
-              key={link.path}
-              to={link.path}
+              key={item.path}
+              to={item.path}
               className={`text-sm tracking-wide uppercase transition-colors duration-200 hover:text-primary ${
-                location.pathname === link.path
+                location.pathname === item.path
                   ? "text-primary font-medium"
                   : "text-muted-foreground"
               }`}
             >
-              {link.label}
+              {item.name}
             </Link>
           ))}
 
@@ -104,17 +106,17 @@ const Header = () => {
       {/* Mobile Nav */}
       {menuOpen && (
         <nav className="md:hidden bg-background border-t border-border px-6 py-6 flex flex-col gap-4">
-          {navLinks.map((link) => (
+          {navItems.map((item) => (
             <Link
-              key={link.path}
-              to={link.path}
+              key={item.path}
+              to={item.path}
               className={`text-sm tracking-wide uppercase ${
-                location.pathname === link.path
+                location.pathname === item.path
                   ? "text-primary font-medium"
                   : "text-muted-foreground"
               }`}
             >
-              {link.label}
+              {item.name}
             </Link>
           ))}
         </nav>

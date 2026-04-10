@@ -11,6 +11,9 @@ import Index from "./pages/Index.tsx";
 import About from "./pages/About.tsx";
 import Services from "./pages/Services.tsx";
 import Contact from "./pages/Contact.tsx";
+import Blog from "./pages/Blog.tsx";
+import BlogPost from "./pages/BlogPost.tsx";
+import TaxCalculator from "./pages/TaxCalculator.tsx";
 import InternalSystem from "./pages/InternalSystem.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -31,6 +34,9 @@ const App = () => (
                   <Route path="/about" element={<About />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/contact" element={<Contact />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:postId" element={<BlogPost />} />
+                  <Route path="/tax-calculator" element={<TaxCalculator />} />
                   <Route path="/internal" element={<InternalSystem />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
