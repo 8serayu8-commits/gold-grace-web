@@ -1,7 +1,9 @@
 import Layout from "@/components/Layout";
 import FadeIn from "@/components/FadeIn";
+import SEO from "@/components/SEO";
 import { ShieldCheck, Award, TrendingUp, BookOpen, Lightbulb } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { organizationSchema, breadcrumbSchema } from "@/utils/structuredData";
 
 const About = () => {
   const { t } = useLanguage();
@@ -13,8 +15,27 @@ const About = () => {
     { icon: Lightbulb, title: t("about.values.solutif.title"), desc: t("about.values.solutif.desc") },
   ];
 
+  const structuredData = {
+    ...organizationSchema,
+    foundingDate: '2010',
+    description: t("about.overview.p1"),
+  };
+
+  const breadcrumbs = [
+    { name: 'Home', url: 'https://jadtraconsulting.com' },
+    { name: t("about.title"), url: 'https://jadtraconsulting.com/about' },
+  ];
+
   return (
-    <Layout>
+    <>
+      <SEO 
+        title={t("about.title")}
+        description={t("about.overview.p1")}
+        keywords="about JADTRA Consulting, company profile, KKP Hakim Muhamad dan Rekan, business consulting firm"
+        canonical="https://jadtraconsulting.com/about"
+        structuredData={structuredData}
+      />
+      <Layout>
       <section className="section-padding">
         <div className="container-narrow">
           <FadeIn>
@@ -89,7 +110,8 @@ const About = () => {
           </div>
         </div>
       </section>
-    </Layout>
+      </Layout>
+    </>
   );
 };
 

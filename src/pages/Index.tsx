@@ -6,10 +6,12 @@ import {
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import FadeIn from "@/components/FadeIn";
+import SEO from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { organizationSchema, localBusinessSchema, websiteSchema } from "@/utils/structuredData";
 
 const Index = () => {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
 
   const services = [
     { icon: Briefcase, title: t("home.services.business.title"), desc: t("home.services.business.desc") },
@@ -38,8 +40,21 @@ const Index = () => {
     { icon: Handshake, title: t("home.trust.partnership.title"), desc: t("home.trust.partnership.desc") },
   ];
 
+  const structuredData = {
+    ...organizationSchema,
+    ...localBusinessSchema,
+    ...websiteSchema,
+  };
+
   return (
-    <Layout>
+    <>
+      <SEO 
+        title={t("home.hero.title")}
+        description={t("home.hero.desc")}
+        keywords="business consulting, tax advisory, digital transformation, KKP Hakim Muhamad dan Rekan, JADTRA Consulting"
+        structuredData={structuredData}
+      />
+      <Layout>
       {/* Hero */}
       <section className="section-padding relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/5 blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
@@ -243,7 +258,8 @@ const Index = () => {
           </FadeIn>
         </div>
       </section>
-    </Layout>
+      </Layout>
+    </>
   );
 };
 

@@ -1,7 +1,9 @@
 import Layout from "@/components/Layout";
 import FadeIn from "@/components/FadeIn";
+import SEO from "@/components/SEO";
 import { Briefcase, Calculator, Monitor, Settings } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { serviceSchema, breadcrumbSchema } from "@/utils/structuredData";
 
 const Services = () => {
   const { t } = useLanguage();
@@ -13,8 +15,49 @@ const Services = () => {
     { icon: Settings, title: t("services.system.title"), desc: t("services.system.desc") },
   ];
 
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: t("services.title"),
+    description: 'Professional business consulting, tax advisory, and digital transformation services',
+    provider: {
+      '@type': 'Organization',
+      name: 'JADTRA Consulting',
+      url: 'https://jadtraconsulting.com',
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Indonesia',
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Professional Services',
+      itemListElement: services.map((service, index) => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: service.title,
+          description: service.desc,
+        },
+      })),
+    },
+  };
+
+  const breadcrumbs = [
+    { name: 'Home', url: 'https://jadtraconsulting.com' },
+    { name: t("services.title"), url: 'https://jadtraconsulting.com/services' },
+  ];
+
   return (
-    <Layout>
+    <>
+      <SEO 
+        title={t("services.title")}
+        description="Comprehensive business consulting, tax advisory, digital transformation, and system development services"
+        keywords="business consulting services, tax advisory services, digital transformation, system development, professional services Indonesia"
+        canonical="https://jadtraconsulting.com/services"
+        structuredData={structuredData}
+      />
+      <Layout>
       <section className="section-padding">
         <div className="container-narrow">
           <FadeIn>
@@ -40,7 +83,8 @@ const Services = () => {
           </div>
         </section>
       ))}
-    </Layout>
+      </Layout>
+    </>
   );
 };
 

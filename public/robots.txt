@@ -1,14 +1,73 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
+# JADTRA Consulting - Robots.txt for SEO Optimization
+# Last updated: 2024
 
 User-agent: *
 Allow: /
+Disallow: /internal/
+Disallow: /admin/
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /api/
+Disallow: /_next/static/
+Disallow: /static/
+Disallow: /*?*$
+Disallow: /*.pdf$
+Disallow: /*.doc$
+Disallow: /*.docx$
+Disallow: /*.xls$
+Disallow: /*.xlsx$
+
+# Allow specific important directories
+Allow: /src/
+Allow: /assets/
+Allow: /public/
+
+# Sitemap location
+Sitemap: https://jadtraconsulting.com/sitemap.xml
+
+# Major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+# Social media crawlers
+User-agent: Twitterbot
+Allow: /
+User-agent: facebookexternalhit
+Allow: /
+User-agent: LinkedInBot
+Allow: /
+User-agent: WhatsApp-2.0
+Allow: /
+
+# SEO tools and analytics
+User-agent: Screaming Frog SEO Spider
+Allow: /
+User-agent: AhrefsBot
+Allow: /
+User-agent: SemrushBot
+Allow: /
+User-agent: MJ12bot
+Allow: /
+
+# Block unwanted bots
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: BacklinkCrawler
+Disallow: /
