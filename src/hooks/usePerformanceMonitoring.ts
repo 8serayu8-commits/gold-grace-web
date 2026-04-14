@@ -142,7 +142,7 @@ const usePerformanceMonitoring = () => {
       domParse: navigation.domContentLoadedEventStart - navigation.responseEnd,
       domReady: navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
       loadComplete: navigation.loadEventEnd - navigation.loadEventStart,
-      total: navigation.loadEventEnd - navigation.navigationStart,
+      total: navigation.loadEventEnd - navigation.startTime,
     };
 
     // Send page load metrics
