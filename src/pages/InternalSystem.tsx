@@ -40,7 +40,6 @@ const LoginView = ({ onLogin, error }: { onLogin: (email: string, password: stri
   const demoAccounts = [
     { email: 'superadmin@jadtra.com', role: 'Super Admin', icon: Crown },
     { email: 'admin@jadtra.com', role: 'Admin', icon: Shield },
-    { email: 'staff@jadtra.com', role: 'Staff', icon: User },
   ];
 
   return (
@@ -131,9 +130,9 @@ const DashboardView = ({ onLogout }: { onLogout: () => void }) => {
 
   const sidebarItems: MenuItem[] = [
     { label: t("internal.dashboard"), icon: LayoutDashboard, key: "Dashboard" },
-    { label: t("internal.clients"), icon: Users, key: "Clients", requiredRole: 'staff' },
-    { label: t("internal.projects"), icon: FolderOpen, key: "Projects", requiredRole: 'staff' },
-    { label: t("internal.documents"), icon: FileText, key: "Documents", requiredRole: 'staff' },
+    { label: t("internal.clients"), icon: Users, key: "Clients", requiredRole: 'admin' },
+    { label: t("internal.projects"), icon: FolderOpen, key: "Projects", requiredRole: 'admin' },
+    { label: t("internal.documents"), icon: FileText, key: "Documents", requiredRole: 'admin' },
     { label: "User Management", icon: UserPlus, key: "Users", requiredRole: 'super_admin' },
     { label: "Settings", icon: Settings, key: "Settings", requiredRole: 'admin' },
   ];
@@ -141,11 +140,11 @@ const DashboardView = ({ onLogout }: { onLogout: () => void }) => {
   // Filter menu items based on user role
   const filteredMenuItems = sidebarItems.filter(item => {
     if (!item.requiredRole) return true;
-    return hasMinRole(user?.role || 'staff', item.requiredRole);
+    return hasMinRole(user?.role || 'admin', item.requiredRole);
   });
 
   const hasMinRole = (userRole: UserRole, requiredRole: UserRole): boolean => {
-    const roleHierarchy = { staff: 1, admin: 2, super_admin: 3 };
+    const roleHierarchy = { admin: 1, super_admin: 2 };
     return roleHierarchy[userRole] >= roleHierarchy[requiredRole];
   };
 
@@ -195,7 +194,6 @@ const DashboardView = ({ onLogout }: { onLogout: () => void }) => {
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
                 {user?.role === 'super_admin' && <Crown className="h-4 w-4 text-primary" />}
                 {user?.role === 'admin' && <Shield className="h-4 w-4 text-primary" />}
-                {user?.role === 'staff' && <User className="h-4 w-4 text-primary" />}
                 <span className="text-sm font-medium text-primary capitalize">
                   {user?.role?.replace('_', ' ')}
                 </span>

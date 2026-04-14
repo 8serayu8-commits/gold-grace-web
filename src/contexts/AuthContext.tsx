@@ -31,15 +31,6 @@ const MOCK_USERS: User[] = [
     lastLogin: new Date().toISOString(),
     isActive: true,
   },
-  {
-    id: '3',
-    email: 'staff@jadtra.com',
-    name: 'Staff User',
-    role: 'staff',
-    createdAt: '2024-01-01T00:00:00Z',
-    lastLogin: new Date().toISOString(),
-    isActive: true,
-  },
 ];
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -145,9 +136,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (!authState.user) return false;
     
     const roleHierarchy = {
-      staff: 1,
-      admin: 2,
-      super_admin: 3,
+      admin: 1,
+      super_admin: 2,
     };
     
     return roleHierarchy[authState.user.role] >= roleHierarchy[requiredRole];

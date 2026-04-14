@@ -157,6 +157,56 @@ const translations: Record<string, Record<Lang, string>> = {
   "internal.phaseNote": { en: "Internal system will be developed in the next phase.", id: "Sistem internal akan dikembangkan pada fase berikutnya." },
   "internal.password": { en: "Password", id: "Kata Sandi" },
 
+  // Tax Calculator
+  "taxCalculator": { en: "Tax Calculator", id: "Kalkulator Pajak" },
+  "taxCalculatorTitle": { en: "PPh 21 Tax Calculator", id: "Kalkulator PPh 21" },
+  "taxCalculatorDescription": { en: "Calculate PPh 21 for permanent employees with our free online calculator from JADTRA Consulting. Easy to use, accurate, and compliant with latest tax regulations.", id: "Hitung PPh 21 pegawai tetap dengan kalkulator online gratis dari JADTRA Consulting. Mudah digunakan, akurat, dan sesuai regulasi pajak terbaru." },
+  "taxCalculatorIntro": { en: "Free online calculator to calculate PPh 21 for permanent employees according to the latest Indonesian tax regulations. Easy to use, accurate, and transparent.", id: "Kalkulator online gratis untuk menghitung PPh 21 pegawai tetap sesuai regulasi perpajakan Indonesia terbaru. Mudah digunakan, akurat, dan transparan." },
+  "aboutTaxCalculator": { en: "About PPh 21 Calculator", id: "Tentang Kalkulator PPh 21" },
+  "taxCalculatorAboutText": { en: "The PPh 21 calculator from JADTRA Consulting is designed to help you calculate estimated PPh 21 that must be paid by permanent employees. The calculation is based on applicable Indonesian tax regulations.", id: "Kalkulator PPh 21 dari JADTRA Consulting dirancang untuk membantu Anda menghitung estimasi PPh 21 yang harus dibayar oleh pegawai tetap. Perhitungan didasarkan pada peraturan perpajakan Indonesia yang berlaku." },
+  "calculatorFeatures": { en: "Calculator Features", id: "Fitur Kalkulator" },
+  "feature1": { en: "PPh 21 calculation for permanent employees", id: "Perhitungan PPh 21 untuk pegawai tetap" },
+  "feature2": { en: "Supports various PTKP statuses (TK, K, KI with 0-3 dependents)", id: "Mendukung berbagai status PTKP (TK, K, KI dengan tanggungan 0-3)" },
+  "feature3": { en: "Annual and monthly calculation results", id: "Hasil perhitungan tahunan dan bulanan" },
+  "feature4": { en: "Effective tax rate", id: "Tarif efektif pajak" },
+  "feature5": { en: "Taxable income and net income", id: "Penghasilan kena pajak dan penghasilan bersih" },
+  "howToUse": { en: "How to Use", id: "Cara Menggunakan" },
+  "step1": { en: "Enter gross monthly income", id: "Masukkan penghasilan bruto per bulan" },
+  "step2": { en: "Select appropriate PTKP status", id: "Pilih status PTKP yang sesuai" },
+  "step3": { en: "Click 'Calculate Tax' button", id: "Klik tombol 'Hitung Pajak'" },
+  "step4": { en: "View complete calculation results", id: "Lihat hasil perhitungan lengkap" },
+  "disclaimer": { en: "Disclaimer", id: "Disclaimer" },
+  "taxCalculatorDisclaimer": { en: "This calculator is for estimation and information purposes only. Calculation results may differ from actual conditions depending on specific income components, allowances, and company policies. For accurate and comprehensive calculations, consult with tax professionals from JADTRA Consulting.", id: "Kalkulator ini hanya untuk estimasi dan tujuan informasi. Hasil perhitungan dapat berbeda dengan kondisi aktual tergantung pada komponen penghasilan spesifik, tunjangan, dan kebijakan perusahaan. Untuk perhitungan yang akurat dan komprehensif, konsultasikan dengan profesional pajak dari JADTRA Consulting." },
+  "taxCalculatorAlert": { en: "This calculator is for PPh 21 estimation for permanent employees. Calculation results may differ depending on specific conditions and company policies.", id: "Kalkulator ini untuk estimasi PPh 21 pegawai tetap. Hasil perhitungan dapat berbeda tergantung kondisi spesifik dan kebijakan perusahaan." },
+  "grossIncomeLabel": { en: "Gross Income per Month (Rp)", id: "Penghasilan Bruto per Bulan (Rp)" },
+  "incomePlaceholder": { en: "Example: 10000000", id: "Contoh: 10000000" },
+  "ptkpStatusLabel": { en: "PTKP Status", id: "Status PTKP" },
+  "ptkpPlaceholder": { en: "Select PTKP status", id: "Pilih status PTKP" },
+  "ptkpExplanation": { en: "PTKP Status Explanation", id: "Keterangan Status PTKP" },
+  "tkExplanation": { en: "Unmarried", id: "Tk-Kawin" },
+  "kExplanation": { en: "Married", id: "Kawin" },
+  "kiExplanation": { en: "Married (Wife)", id: "Kawin-Istri" },
+  "dependentsExplanation": { en: "Number of dependents", id: "Jumlah tanggungan" },
+  "calculateTaxButton": { en: "Calculate Tax", id: "Hitung Pajak" },
+  "resetButton": { en: "Reset", id: "Reset" },
+  "invalidIncome": { en: "Please enter a valid income", id: "Masukkan penghasilan yang valid" },
+  "calculationResults": { en: "Calculation Results", id: "Hasil Perhitungan" },
+  "grossIncomeMonthly": { en: "Gross Income (Monthly)", id: "Penghasilan Bruto (Bulanan)" },
+  "taxableIncomeAnnual": { en: "Taxable Income (Annual)", id: "Penghasilan Kena Pajak (Tahunan)" },
+  "pph21Annual": { en: "PPh 21 (Annual)", id: "PPh 21 (Tahunan)" },
+  "pph21Monthly": { en: "PPh 21 (Monthly)", id: "PPh 21 (Bulanan)" },
+  "netIncomeMonthly": { en: "Net Income (Monthly)", id: "Penghasilan Bersih (Bulanan)" },
+  "effectiveRate": { en: "Effective Rate", id: "Tarif Efektif" },
+  "summary": { en: "Summary", id: "Ringkasan" },
+  "summaryText1": { en: "From gross income {{grossIncome}} per month, you pay PPh 21 of {{monthlyTax}} per month or {{annualTax}} per year.", id: "Dari penghasilan bruto {{grossIncome}} per bulan, Anda membayar PPh 21 sebesar {{monthlyTax}} per bulan atau {{annualTax}} per tahun." },
+  "summaryText2": { en: "Your net income is {{netIncome}} per month with an effective rate of {{effectiveRate}}%.", id: "Penghasilan bersih yang Anda terima adalah {{netIncome}} per bulan dengan tarif efektif {{effectiveRate}}%." },
+  "taxStructure": { en: "PPh 21 Tax Structure", id: "Struktur Tarif PPh 21" },
+  "taxBracket1": { en: "0 - Rp60 million: 5%", id: "0 - Rp60 juta: 5%" },
+  "taxBracket2": { en: "Rp60 million - Rp250 million: 15%", id: "Rp60 juta - Rp250 juta: 15%" },
+  "taxBracket3": { en: "Rp250 million - Rp500 million: 25%", id: "Rp250 juta - Rp500 juta: 25%" },
+  "taxBracket4": { en: "Rp500 million - Rp5 billion: 30%", id: "Rp500 juta - Rp5 miliar: 30%" },
+  "taxBracket5": { en: "Above Rp5 billion: 35%", id: "Diatas Rp5 miliar: 35%" },
+
   // NotFound
   "notfound.title": { en: "Oops! Page not found", id: "Halaman tidak ditemukan" },
   "notfound.back": { en: "Return to Home", id: "Kembali ke Beranda" },
@@ -175,8 +225,16 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem("jadtra-lang", l);
   };
 
-  const t = (key: string): string => {
-    return translations[key]?.[lang] ?? key;
+  const t = (key: string, params?: Record<string, string>): string => {
+    let text = translations[key]?.[lang] ?? key;
+    
+    if (params) {
+      Object.entries(params).forEach(([param, value]) => {
+        text = text.replace(new RegExp(`{{${param}}}`, 'g'), value);
+      });
+    }
+    
+    return text;
   };
 
   return (

@@ -5,16 +5,19 @@ import Breadcrumb from "@/components/Breadcrumb";
 import PPh21Calculator from "@/components/PPh21Calculator";
 import { Calculator } from "lucide-react";
 import { articleSchema, breadcrumbSchema } from "@/utils/structuredData";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const TaxCalculator = () => {
+  const { t, language } = useLanguage();
+  
   const breadcrumbs = [
-    { name: 'Home', url: 'https://jadtraweb.vercel.app' },
-    { name: 'Tax Calculator', url: 'https://jadtraweb.vercel.app/tax-calculator' },
+    { name: t('home'), url: 'https://jadtraweb.vercel.app' },
+    { name: t('taxCalculator'), url: 'https://jadtraweb.vercel.app/tax-calculator' },
   ];
 
   const structuredData = articleSchema(
-    "Kalkulator PPh 21 Online",
-    "Hitung PPh 21 pegawai tetap dengan kalkulator online gratis dari JADTRA Consulting. Mudah digunakan, akurat, dan sesuai regulasi terbaru.",
+    t('taxCalculatorTitle'),
+    t('taxCalculatorDescription'),
     "2024-04-10",
     "Tim JADTRA Consulting"
   );
@@ -22,8 +25,8 @@ const TaxCalculator = () => {
   return (
     <>
       <SEO 
-        title="Kalkulator PPh 21 Online - Gratis & Akurat"
-        description="Hitung PPh 21 pegawai tetap dengan kalkulator online gratis dari JADTRA Consulting. Mudah digunakan, akurat, dan sesuai regulasi pajak terbaru."
+        title={t('taxCalculatorTitle') + " - Gratis & Akurat"}
+        description={t('taxCalculatorDescription')}
         keywords="kalkulator PPh 21, hitung PPh 21, PPh 21 online, kalkulator pajak, pajak penghasilan, tax calculator Indonesia"
         canonical="https://jadtraweb.vercel.app/tax-calculator"
         structuredData={structuredData}
@@ -36,13 +39,12 @@ const TaxCalculator = () => {
               <div className="flex items-center gap-3 mb-4">
                 <Calculator className="h-8 w-8 text-primary" />
                 <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
-                  Kalkulator PPh 21
+                  {t('taxCalculatorTitle')}
                 </h1>
               </div>
               <div className="gold-divider mt-4" />
               <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-                Kalkulator online gratis untuk menghitung PPh 21 pegawai tetap sesuai regulasi perpajakan Indonesia terbaru.
-                Mudah digunakan, akurat, dan transparan.
+                {t('taxCalculatorIntro')}
               </p>
             </FadeIn>
           </div>
@@ -60,34 +62,31 @@ const TaxCalculator = () => {
           <div className="container-narrow">
             <FadeIn>
               <div className="prose prose-lg max-w-none text-foreground">
-                <h2>Tentang Kalkulator PPh 21</h2>
+                <h2>{t('aboutTaxCalculator')}</h2>
                 <p>
-                  Kalkulator PPh 21 dari JADTRA Consulting dirancang untuk membantu Anda menghitung estimasi PPh 21 yang harus dibayar oleh pegawai tetap. 
-                  Perhitungan didasarkan pada peraturan perpajakan Indonesia yang berlaku.
+                  {t('taxCalculatorAboutText')}
                 </p>
                 
-                <h3>Fitur Kalkulator</h3>
+                <h3>{t('calculatorFeatures')}</h3>
                 <ul>
-                  <li>Perhitungan PPh 21 untuk pegawai tetap</li>
-                  <li>Mendukung berbagai status PTKP (TK, K, KI dengan tanggungan 0-3)</li>
-                  <li>Hasil perhitungan tahunan dan bulanan</li>
-                  <li>Tarif efektif pajak</li>
-                  <li>Penghasilan kena pajak dan penghasilan bersih</li>
+                  <li>{t('feature1')}</li>
+                  <li>{t('feature2')}</li>
+                  <li>{t('feature3')}</li>
+                  <li>{t('feature4')}</li>
+                  <li>{t('feature5')}</li>
                 </ul>
                 
-                <h3>Cara Menggunakan</h3>
+                <h3>{t('howToUse')}</h3>
                 <ol>
-                  <li>Masukkan penghasilan bruto per bulan</li>
-                  <li>Pilih status PTKP yang sesuai</li>
-                  <li>Klik tombol "Hitung Pajak"</li>
-                  <li>Lihat hasil perhitungan lengkap</li>
+                  <li>{t('step1')}</li>
+                  <li>{t('step2')}</li>
+                  <li>{t('step3')}</li>
+                  <li>{t('step4')}</li>
                 </ol>
                 
-                <h3>Disclaimer</h3>
+                <h3>{t('disclaimer')}</h3>
                 <p>
-                  Kalkulator ini hanya untuk estimasi dan tujuan informasi. Hasil perhitungan dapat berbeda dengan kondisi aktual tergantung pada 
-                  komponen penghasilan spesifik, tunjangan, dan kebijakan perusahaan. Untuk perhitungan yang akurat dan komprehensif, 
-                  konsultasikan dengan profesional pajak dari JADTRA Consulting.
+                  {t('taxCalculatorDisclaimer')}
                 </p>
               </div>
             </FadeIn>
