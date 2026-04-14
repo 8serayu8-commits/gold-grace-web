@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import AppWrapper from "./AppWrapper";
 import Index from "./pages/Index.tsx";
 import About from "./pages/About.tsx";
 import Services from "./pages/Services.tsx";
@@ -29,17 +30,19 @@ const App = () => (
               <Toaster />
               <Sonner />
               <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/services" element={<Services />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/blog" element={<Blog />} />
-                  <Route path="/blog/:postId" element={<BlogPost />} />
-                  <Route path="/tax-calculator" element={<TaxCalculator />} />
-                  <Route path="/internal" element={<InternalSystem />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
+                <AppWrapper>
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/services" element={<Services />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/blog" element={<Blog />} />
+                    <Route path="/blog/:postId" element={<BlogPost />} />
+                    <Route path="/tax-calculator" element={<TaxCalculator />} />
+                    <Route path="/internal" element={<InternalSystem />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </AppWrapper>
               </BrowserRouter>
             </TooltipProvider>
           </LanguageProvider>
