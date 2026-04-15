@@ -162,7 +162,7 @@ export const optimizeCLS = () => {
       if (!container.hasAttribute('data-skeleton')) {
         const skeleton = document.createElement('div');
         skeleton.className = 'animate-pulse bg-muted rounded';
-        skeleton.style.height = container.getAttribute('data-height') || '200px';
+        (skeleton as HTMLElement).style.height = container.getAttribute('data-height') || '200px';
         skeleton.setAttribute('data-skeleton', 'true');
         container.appendChild(skeleton);
       }
