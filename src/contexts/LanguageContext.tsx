@@ -4,8 +4,9 @@ export type Lang = "en" | "id";
 
 interface LanguageContextType {
   lang: Lang;
+  language: Lang;
   setLang: (lang: Lang) => void;
-  t: (key: string) => string;
+  t: (key: string, params?: Record<string, string>) => string;
 }
 
 const translations: Record<string, Record<Lang, string>> = {
@@ -244,7 +245,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <LanguageContext.Provider value={{ lang, setLang: handleSetLang, t }}>
+    <LanguageContext.Provider value={{ lang, language: lang, setLang: handleSetLang, t }}>
       {children}
     </LanguageContext.Provider>
   );

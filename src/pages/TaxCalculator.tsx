@@ -137,8 +137,8 @@ const TaxCalculator = () => {
                   Cara mengoptimalkan penghasilan bersih Anda dengan strategi pajak yang tepat
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-background border border-border rounded-lg p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                <div className="bg-background border border-border rounded-lg p-6 text-center">
                   <h3 className="font-semibold text-foreground mb-3">Deductible Expenses</h3>
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     <li>Biaya transportasi ke kantor</li>
@@ -147,12 +147,12 @@ const TaxCalculator = () => {
                     <li>Biaya pengembangan diri</li>
                   </ul>
                 </div>
-                <div className="bg-background border border-border rounded-lg p-6">
+                <div className="bg-background border border-border rounded-lg p-6 text-center">
                   <h3 className="font-semibold text-foreground mb-3">Investasi Tax-Efficient</h3>
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     <li>Dana pensiun (DPPK)</li>
                     <li>Asuransi jiwa</li>
-                    <li>Investasi saam</li>
+                    <li>Investasi saham</li>
                     <li>Reksadana</li>
                   </ul>
                 </div>
