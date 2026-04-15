@@ -28,15 +28,15 @@ const Blog = () => {
 
   const blogPosts: BlogPost[] = [
     {
-      id: "pajak-penghasilan-2024",
-      title: "Panduan Lengkap Pajak Penghasilan 2024: Perubahan Terbaru dan Tips Optimasi",
-      excerpt: "Memahami perubahan tarif PPh terbaru, cara menghitung pajak dengan benar, dan strategi optimasi untuk individu dan bisnis.",
+      id: "pajak-penghasilan-2026",
+      title: "Panduan Lengkap PPh 21 Tahun 2026: Tarif Baru dan Strategi Optimasi",
+      excerpt: "Memahami perubahan tarif PPh 21 terbaru 2026, cara perhitungan yang akurat, dan strategi optimasi pajak untuk maksimalkan penghasilan bersih Anda.",
       content: `
-        <h2>Pengenalan Pajak Penghasilan 2024</h2>
-        <p>Pajak Penghasilan (PPh) merupakan salah satu jenis pajak yang paling signifikan dalam sistem perpajakan Indonesia. Tahun 2024 membawa beberapa perubahan penting yang perlu dipahami oleh wajib pajak.</p>
+        <h2>Pajak Penghasilan 2026: Apa yang Berubah?</h2>
+        <p>Tahun 2026 membawa perubahan signifikan dalam peraturan PPh 21 Indonesia. UU Harmonisasi Peraturan Perpajakan (UU HPP) terus berdampak pada cara kita menghitung dan membayar pajak penghasilan.</p>
         
-        <h3>Perubahan Tarif PPh 21 Terbaru</h3>
-        <p>Tarif PPh 21 untuk tahun 2024 mengalami penyesuaian sebagai berikut:</p>
+        <h3>Update Tarif PPh 21 2026</h3>
+        <p>Berikut tarif PPh 21 yang berlaku tahun 2026:</p>
         <ul>
           <li>Penghasilan hingga Rp60 juta: 5%</li>
           <li>Penghasilan Rp60-250 juta: 15%</li>
@@ -45,86 +45,184 @@ const Blog = () => {
           <li>Penghasilan di atas Rp5 miliar: 35%</li>
         </ul>
         
-        <h3>Tips Optimasi Pajak</h3>
-        <p>Untuk mengoptimalkan pajak Anda, pertimbangkan strategi berikut:</p>
+        <h3>PTKP Terbaru 2026</h3>
+        <p>Penghasilan Tidak Kena Pajak (PTKP) tahun 2026:</p>
+        <ul>
+          <li>TK (Tidak Kawin): Rp54.000.000</li>
+          <li>K (Kawin): Rp58.500.000</li>
+          <li>K/I (Kawin Anak 1): Rp63.000.000</li>
+          <li>K/II (Kawin Anak 2): Rp67.500.000</li>
+          <li>K/III (Kawin Anak 3): Rp72.000.000</li>
+        </ul>
+        
+        <h3>Strategi Optimasi Pajak 2026</h3>
         <ol>
-          <li>Manfaatkan semua deductible expenses</li>
-          <li>Persiapkan dokumen dengan baik</li>
-          <li>Gunakan fasilitas tax deduction yang tersedia</li>
-          <li>Konsultasikan dengan profesional pajak</li>
+          <li><strong>Manfaatkan deductible expenses</strong> - Biaya operasional, biaya transport, dan biaya representasi</li>
+          <li><strong>Optimalkan fasilitas pensiun</strong> - Kontribusi dana pensiun dapat mengurangi penghasilan kena pajak</li>
+          <li><strong>Investasi yang tax-efficient</strong> - Saham, obligasi, dan produk investasi lain yang mendapat fasilitas pajak</li>
+          <li><strong>Dokumentasi yang lengkap</strong> - Simpan semua bukti pengeluaran yang dapat dikurangkan</li>
         </ol>
+        
+        <h3>Tips Praktis untuk Karyawan</h3>
+        <ul>
+          <li>Periksa slip gaji setiap bulan untuk memastikan perhitungan pajak benar</li>
+          <li>Simpan semua bukti pengeluaran yang relevan</li>
+          <li>Gunakan aplikasi penghitung pajak yang terpercaya</li>
+          <li>Konsultasikan dengan konsultan pajak untuk situasi kompleks</li>
+        </ul>
       `,
       author: "Tim JADTRA Consulting",
-      publishDate: "2024-04-01",
-      readTime: "5 menit",
+      publishDate: "2026-01-15",
+      readTime: "8 menit",
       category: "Pajak Penghasilan",
-      tags: ["PPh 21", "Tarif Pajak", "Optimasi Pajak"],
+      tags: ["PPh 21", "Tarif Pajak 2026", "Optimasi Pajak", "PTKP"],
       featured: true
     },
     {
-      id: "pajak-umkm-digital",
-      title: "Strategi Pajak untuk UMKM di Era Digital: Peluang dan Tantangan",
-      excerpt: "Bagaimana UMKM dapat memanfaatkan fasilitas pajak dan mengatasi tantangan perpajakan dalam bisnis digital.",
+      id: "umkm-digital-2026",
+      title: "UMKM Digital 2026: Panduan Lengkap Pajak E-Commerce",
+      excerpt: "Strategi lengkap perpajakan untuk UMKM digital, tips optimasi pajak online, dan cara memanfaatkan fasilitas pajak terbaru 2026.",
       content: `
-        <h2>UMKM Digital dan Perpajakan</h2>
-        <p>Transformasi digital membawa peluang baru bagi UMKM, namun juga menciptakan tantangan perpajakan yang perlu dipahami.</p>
+        <h2>Era Digital UMKM 2026: Peluang dan Tantangan Pajak</h2>
+        <p>Tahun 2026 menandai era baru bagi UMKM Indonesia dengan pertumbuhan e-commerce yang pesat. Namun, kesuksesan digital harus diimbangi dengan kepatuhan perpajakan yang tepat.</p>
         
-        <h3>Fasilitas Pajak untuk UMKM</h3>
-        <p>Pemerintah menyediakan beberapa fasilitas pajak khusus untuk UMKM:</p>
+        <h3>Fasilitas Pajak UMKM Terbaru 2026</h3>
+        <p>Pemerintah terus memberikan dukungan melalui fasilitas pajak:</p>
         <ul>
-          <li>PPh Final 0.5% untuk omzet hingga Rp4.8 miliar</li>
-          <li>Pembebasan PPN untuk UMKM tertentu</li>
-          <li>Insentif fiskal untuk sektor prioritas</li>
+          <li><strong>PPh Final 0.5%</strong> - Untuk omzet hingga Rp4.8 miliar per tahun</li>
+          <li><strong>Pembebasan PPN</strong> - Untuk barang/jasa tertentu yang diekspor</li>
+          <li><strong>Tax Holiday</strong> - Untuk investasi di sektor prioritas</li>
+          <li><strong>Super Tax Deduction</strong> - Deduksi hingga 300% untuk investasi vokasi</li>
         </ul>
         
-        <h3>Tantangan yang Dihadapi</h3>
-        <p>UMKM digital menghadapi tantangan dalam:</p>
+        <h3>Platform E-Commerce dan Kewajiban Pajak</h3>
+        <p>Setiap platform memiliki karakteristik pajak yang berbeda:</p>
         <ol>
-          <li>Pencatatan transaksi digital</li>
-          <li>Kepatuhan perpajakan online</li>
-          <li>Pemahaman regulasi e-commerce</li>
-          <li>Integrasi sistem pembayaran</li>
+          <li><strong>Marketplace (Tokopedia, Shopee, dll)</strong> - PPh 22 dipungut oleh platform</li>
+          <li><strong>Social Commerce (Instagram, TikTok)</strong> - Self-assessment oleh penjual</li>
+          <li><strong>Website Sendiri</strong> - Full compliance oleh pemilik bisnis</li>
+          <li><strong>Dropshipping</strong> - Perhatikan nexus pajak di berbagai lokasi</li>
+        </ol>
+        
+        <h3>Strategi Optimasi Pajak UMKM Digital</h3>
+        <ul>
+          <li><strong>Separate business finances</strong> - Pisahkan keuangan pribadi dan bisnis</li>
+          <li><strong>Use accounting software</strong> - Otomatisasi pencatatan dan pelaporan</li>
+          <li><strong>Understand tax nexus</strong> - Kewajiban pajak di berbagai jurisdiksi</li>
+          <li><strong>Document everything</strong> - Simpan semua bukti transaksi digital</li>
+          <li><strong>Regular tax health check</strong> - Review berkala dengan konsultan pajak</li>
+        </ul>
+        
+        <h3>Tips Praktis untuk UMKM Digital</h3>
+        <ol>
+          <li>Daftarkan NPWP segera setelah memulai bisnis</li>
+          <li>Pilih bentuk usaha yang tepat (perorangan vs PT)</li>
+          <li>Manfaatkan aplikasi pembukuan digital</li>
+          <li>Ikuti update regulasi e-commerce</li>
+          <li>Bangun sistem kepatuhan dari awal</li>
         </ol>
       `,
       author: "Tim JADTRA Consulting",
-      publishDate: "2024-03-28",
-      readTime: "4 menit",
-      category: "UMKM",
-      tags: ["UMKM", "Digital", "Pajak Online"],
+      publishDate: "2026-01-20",
+      readTime: "10 menit",
+      category: "UMKM Digital",
+      tags: ["UMKM", "E-Commerce", "Pajak Digital", "Startup"],
       featured: true
     },
     {
-      id: "transfer-pricing-guide",
-      title: "Transfer Pricing 101: Panduan Dasar untuk Transaksi Antar Perusahaan",
-      excerpt: "Memahami konsep transfer pricing, aturan yang berlaku, dan cara mengimplementasikannya dalam bisnis multinasional.",
+      id: "tax-compliance-2026",
+      title: "Digital Tax Compliance 2026: Panduan Kepatuhan Pajak Era Digital",
+      excerpt: "Strategi modern untuk kepatuhan pajak digital, implementasi teknologi, dan best practices untuk bisnis era 2026.",
       content: `
-        <h2>Apa itu Transfer Pricing?</h2>
-        <p>Transfer pricing adalah penetapan harga untuk transaksi antar perusahaan dalam grup multinasional yang terkait. Tujuannya adalah untuk memastikan harga yang ditetapkan wajar dan sesuai dengan prinsip arm's length.</p>
+        <h2>Era Kepatuhan Pajak Digital 2026</h2>
+        <p>Tahun 2026 menandai transformasi lengkap kepatuhan pajak ke era digital. DJP terus berinovasi dengan teknologi untuk meningkatkan kepatuhan dan memudahkan wajib pajak.</p>
         
-        <h3>Metode Transfer Pricing</h3>
-        <p>Terdapat beberapa metode yang dapat digunakan:</p>
+        <h3>Inovasi Digital DJP 2026</h3>
         <ul>
-          <li>Comparable Uncontrolled Price (CUP)</li>
-          <li>Cost Plus Method</li>
-          <li>Resale Price Method</li>
-          <li>Profit Split Method</li>
-          <li>Transactional Net Margin Method (TNMM)</li>
+          <li><strong>e-Filing Enhanced</strong> - Interface lebih user-friendly dengan AI assistant</li>
+          <li><strong>e-Billing Real-time</strong> - Notifikasi pembayaran pajak instan</li>
+          <li><strong>Digital Tax Audit</strong> - Audit berbasis data analytics</li>
+          <li><strong>Blockchain Integration</strong> - Keamanan dan transparansi data pajak</li>
         </ul>
         
-        <h3>Dokumentasi Transfer Pricing</h3>
-        <p>Dokumentasi yang diperlukan meliputi:</p>
+        <h3>Strategi Kepatuhan Modern</h3>
         <ol>
-          <li>Master file</li>
-          <li>Local file</li>
-          <li>Country-by-country report</li>
-          <li>Dokumentasi transaksi spesifik</li>
+          <li><strong>Cloud-based Tax Management</strong> - Sistem pajak terintegrasi di cloud</li>
+          <li><strong>Automated Compliance</strong> - Otomasi pelaporan dan pembayaran</li>
+          <li><strong>Real-time Monitoring</strong> - Dashboard kepatuhan real-time</li>
+          <li><strong>Predictive Analytics</strong> - Prediksi risiko pajak dengan AI</li>
+        </ol>
+        
+        <h3>Best Practices untuk 2026</h3>
+        <ul>
+          <li>Implementasikan sistem ERP terintegrasi dengan modul pajak</li>
+          <li>Gunakan software kepatuhan pajak yang certified</li>
+          <li>Bangun tim digital tax specialist</li>
+          <li>Lakukan digital tax assessment berkala</li>
+          <li>Manfaatkan fasilitas pajak digital yang tersedia</li>
+        </ul>
+        
+        <h3>Risiko dan Mitigasi</h3>
+        <ol>
+          <li><strong>Data Security</strong> - Enkripsi data pajak sensitif</li>
+          <li><strong>System Integration</strong> - Kompatibilitas antar sistem</li>
+          <li><strong>Regulatory Changes</strong> - Update regulasi digital pajak</li>
+          <li><strong>Cybersecurity</strong> - Proteksi sistem kepatuhan dari cyber threats</li>
         </ol>
       `,
       author: "Tim JADTRA Consulting",
-      publishDate: "2024-03-25",
-      readTime: "6 menit",
-      category: "Transfer Pricing",
-      tags: ["Transfer Pricing", "Multinasional", "Dokumentasi"],
+      publishDate: "2026-01-18",
+      readTime: "12 menit",
+      category: "Tax Technology",
+      tags: ["Digital Tax", "Compliance", "Tax Technology", "Innovation"],
+      featured: true
+    },
+    {
+      id: "esg-tax-2026",
+      title: "ESG dan Pajak 2026: Peluang Investasi Berkelanjutan",
+      excerpt: "Bagaimana ESG (Environmental, Social, Governance) memengaruhi strategi pajak dan peluang insentif fiskal untuk investasi berkelanjutan.",
+      content: `
+        <h2>ESG Meets Tax: Paradigma Baru 2026</h2>
+        <p>Tahun 2026 melihat konvergensi antara ESG dan perpajakan. Pemerintah Indonesia semakin agresif memberikan insentif pajak untuk investasi berkelanjutan.</p>
+        
+        <h3>Insentif Pajak ESG Terbaru</h3>
+        <ul>
+          <li><strong>Green Tax Incentives</strong> - Deduksi pajak untuk investasi hijau</li>
+          <li><strong>Carbon Tax Credits</strong> - Kredit pajak untuk reduksi emisi</li>
+          <li><strong>Social Investment Deduction</strong> - Fasilitas untuk program sosial</li>
+          <li><strong>Sustainability Reporting Tax Benefits</strong> - Insentif untuk laporan ESG</li>
+        </ul>
+        
+        <h3>Sektor Prioritas ESG 2026</h3>
+        <ol>
+          <li><strong>Energi Terbarukan</strong> - Solar, wind, dan renewable energy</li>
+          <li><strong>Transportasi Hijau</strong> - EV dan infrastruktur charging</li>
+          <li><strong>Waste Management</strong> - Pengelolaan sampah berkelanjutan</li>
+          <li><strong>Green Building</strong> - Bangunan sertifikasi hijau</li>
+        </ol>
+        
+        <h3>Strategi Tax Planning ESG</h3>
+        <ul>
+          <li>Integrasikan ESG dalam corporate tax strategy</li>
+          <li>Manfaatkan super tax deduction untuk investasi vokasi</li>
+          <li>Optimalkan carbon credits dan green certificates</li>
+          <li>Bangun ESG reporting framework terintegrasi pajak</li>
+          <li>Kolaborasi dengan ESG consultants dan tax advisors</li>
+        </ul>
+        
+        <h3>Case Study: Success Stories</h3>
+        <p>Beberapa perusahaan telah berhasil memanfaatkan insentif ESG:</p>
+        <ol>
+          <li>Manufacturing company menghemat 30% pajak melalui green investment</li>
+          <li>Tech startup mendapatkan tax holiday untuk ESG innovation</li>
+          <li>Property developer benefit dari green building incentives</li>
+        </ol>
+      `,
+      author: "Tim JADTRA Consulting",
+      publishDate: "2026-01-22",
+      readTime: "15 menit",
+      category: "ESG & Tax",
+      tags: ["ESG", "Sustainability", "Green Tax", "Investment"],
       featured: false
     },
     {
@@ -242,22 +340,39 @@ const Blog = () => {
   return (
     <>
       <SEO 
-        title="Blog - Tax Insights & Business Consulting Tips"
-        description="Expert insights on Indonesian tax regulations, business consulting strategies, and digital transformation tips from JADTRA Consulting professionals."
-        keywords="tax blog, Indonesian tax, business consulting, tax insights, digital transformation, tax tips"
+        title="Blog 2026 - Tax Insights & Digital Business Consulting"
+        description="Latest 2026 tax insights, digital business strategies, ESG tax benefits, and modern compliance tips from JADTRA Consulting experts."
+        keywords="tax blog 2026, Indonesian tax, digital transformation, ESG tax, business consulting, tax compliance"
         canonical="https://jadtraweb.vercel.app/blog"
         structuredData={structuredData}
       />
       <Layout>
-        <section className="section-padding">
-          <div className="container-narrow">
+        {/* Hero Section */}
+        <section className="section-padding relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/5 blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+          <div className="container-narrow relative">
             <FadeIn>
               <Breadcrumb items={breadcrumbs} className="mb-6" />
-              <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground">Blog</h1>
-              <div className="gold-divider mt-4" />
-              <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-                Wawasan mendalam tentang perpajakan Indonesia, konsultasi bisnis, dan transformasi digital dari para ahli JADTRA Consulting.
-              </p>
+              <div className="text-center max-w-4xl mx-auto">
+                <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+                  Blog JADTRA Consulting
+                </h1>
+                <div className="gold-divider mx-auto mb-8" />
+                <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
+                  Wawasan pajak terbaru 2026, strategi bisnis digital, dan tips kepatuhan modern dari para ahli konsultan pajak kami.
+                </p>
+                <div className="flex flex-wrap justify-center gap-3 mt-8">
+                  <span className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                    2026 Updates
+                  </span>
+                  <span className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                    Digital Tax
+                  </span>
+                  <span className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                    ESG Insights
+                  </span>
+                </div>
+              </div>
             </FadeIn>
           </div>
         </section>

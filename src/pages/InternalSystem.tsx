@@ -156,7 +156,7 @@ const DashboardView = ({ onLogout }: { onLogout: () => void }) => {
 
   return (
     <div className="min-h-screen flex bg-secondary">
-      <aside className="w-60 bg-foreground text-background flex flex-col shrink-0">
+      <aside className="w-60 bg-background text-foreground flex flex-col shrink-0">
         <div className="p-6 border-b border-primary/20">
           <h2 className="font-heading text-lg text-primary">JADTRA</h2>
           <p className="text-xs text-muted-foreground">{t("internal.title")}</p>
@@ -169,7 +169,7 @@ const DashboardView = ({ onLogout }: { onLogout: () => void }) => {
               className={`w-full flex items-center gap-3 px-6 py-3 text-sm transition-colors ${
                 activeMenu === item.key
                   ? "bg-primary/20 text-primary"
-                  : "text-muted-foreground hover:text-background hover:bg-background/10"
+                  : "text-muted-foreground hover:text-foreground hover:bg-background/10"
               }`}
             >
               <item.icon className="h-4 w-4" />
@@ -179,7 +179,7 @@ const DashboardView = ({ onLogout }: { onLogout: () => void }) => {
         </nav>
         <button
           onClick={onLogout}
-          className="flex items-center gap-3 px-6 py-4 text-sm text-muted-foreground hover:text-background border-t border-primary/20 transition-colors"
+          className="flex items-center gap-3 px-6 py-4 text-sm text-muted-foreground hover:text-foreground border-t border-primary/20 transition-colors"
         >
           <LogOut className="h-4 w-4" />
           {t("internal.logout")}

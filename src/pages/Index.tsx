@@ -58,21 +58,30 @@ const Index = () => {
       {/* Hero */}
       <section className="section-padding relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/5 blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-primary/3 blur-2xl translate-y-1/2 -translate-x-1/4 pointer-events-none" />
         <div className="container-narrow relative">
           <FadeIn>
-            <div className="max-w-2xl">
-              <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground">
+            <div className="max-w-3xl">
+              <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-foreground mb-8">
                 {t("home.hero.title")}
               </h1>
-              <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-xl">
+              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mb-12">
                 {t("home.hero.desc")}
               </p>
-              <Link
-                to="/contact"
-                className="inline-block mt-10 px-8 py-3.5 bg-primary text-primary-foreground font-medium text-sm uppercase tracking-wider hover:bg-primary/90 hover:shadow-[0_0_20px_hsl(var(--primary)/0.4)] transition-all duration-300"
-              >
-                {t("home.hero.cta")}
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  to="/contact"
+                  className="inline-block px-10 py-4 bg-primary text-primary-foreground font-semibold text-sm uppercase tracking-wider hover:bg-primary/90 hover:shadow-[0_0_30px_hsl(var(--primary)/0.5)] transition-all duration-300 rounded-sm"
+                >
+                  {t("home.hero.cta")}
+                </Link>
+                <Link
+                  to="/tax-calculator"
+                  className="inline-block px-10 py-4 bg-background text-foreground font-semibold text-sm uppercase tracking-wider border border-border hover:bg-foreground hover:text-background transition-all duration-300 rounded-sm"
+                >
+                  {t("taxCalculator")}
+                </Link>
+              </div>
             </div>
           </FadeIn>
         </div>
@@ -96,18 +105,35 @@ const Index = () => {
       <section className="section-padding">
         <div className="container-narrow">
           <FadeIn>
-            <div className="text-center mb-16">
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground">{t("home.services.title")}</h2>
-              <div className="gold-divider mx-auto mt-4" />
+            <div className="text-center mb-20">
+              <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">{t("home.services.title")}</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("home.services.subtitle")}</p>
+              <div className="gold-divider mx-auto mt-8" />
             </div>
           </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {services.map((s, i) => (
               <FadeIn key={i} delay={i * 0.1}>
-                <div className="group p-8 bg-background border border-border rounded-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                  <s.icon className="text-primary mb-5" size={28} strokeWidth={1.5} />
-                  <h3 className="font-heading text-xl font-semibold text-foreground mb-2">{s.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
+                <div className="group p-10 bg-background border border-border rounded-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-500" />
+                  <div className="relative">
+                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
+                      <s.icon className="text-primary" size={32} strokeWidth={1.5} />
+                    </div>
+                    <h3 className="font-heading text-2xl font-semibold text-foreground mb-4">{s.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed text-base">{s.desc}</p>
+                    <div className="mt-6 pt-6 border-t border-border/50">
+                      <Link 
+                        to="/services" 
+                        className="inline-flex items-center text-primary font-medium text-sm hover:text-primary/80 transition-colors"
+                      >
+                        Learn more
+                        <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </FadeIn>
             ))}
@@ -119,26 +145,27 @@ const Index = () => {
       <section className="bg-secondary section-padding">
         <div className="container-narrow">
           <FadeIn>
-            <div className="text-center mb-16">
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground">{t("home.howWeWork.title")}</h2>
-              <div className="gold-divider mx-auto mt-4" />
+            <div className="text-center mb-20">
+              <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">{t("home.howWeWork.title")}</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("home.howWeWork.subtitle")}</p>
+              <div className="gold-divider mx-auto mt-8" />
             </div>
           </FadeIn>
           <div className="relative">
-            <div className="hidden md:block absolute top-16 left-[calc(12.5%+14px)] right-[calc(12.5%+14px)] h-[2px] bg-primary/30" />
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6">
+            <div className="hidden md:block absolute top-20 left-[calc(12.5%+20px)] right-[calc(12.5%+20px)] h-[2px] bg-primary/30" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
               {steps.map((step, i) => (
                 <FadeIn key={i} delay={i * 0.15}>
                   <div className="relative text-center group">
                     {i < steps.length - 1 && (
-                      <div className="md:hidden absolute left-1/2 top-[72px] w-[2px] h-[calc(100%+2rem)] bg-primary/20 -translate-x-1/2" />
+                      <div className="md:hidden absolute left-1/2 top-[80px] w-[2px] h-[calc(100%+3rem)] bg-primary/20 -translate-x-1/2" />
                     )}
-                    <div className="relative z-10 w-14 h-14 mx-auto rounded-full bg-background border-2 border-primary flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                      <step.icon size={22} strokeWidth={1.5} className="text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+                    <div className="relative z-10 w-16 h-16 mx-auto rounded-full bg-background border-2 border-primary flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 shadow-lg">
+                      <step.icon size={24} strokeWidth={1.5} className="text-primary group-hover:text-primary-foreground transition-colors duration-300" />
                     </div>
-                    <span className="text-xs font-medium text-primary tracking-widest uppercase">{step.num}</span>
-                    <h3 className="font-heading text-lg font-semibold text-foreground mt-1 mb-2">{step.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{step.desc}</p>
+                    <span className="text-xs font-medium text-primary tracking-widest uppercase mb-3 block">{step.num}</span>
+                    <h3 className="font-heading text-xl font-semibold text-foreground mb-3">{step.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed text-sm">{step.desc}</p>
                   </div>
                 </FadeIn>
               ))}
@@ -151,18 +178,24 @@ const Index = () => {
       <section className="section-padding">
         <div className="container-narrow">
           <FadeIn>
-            <div className="text-center mb-16">
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground">{t("home.trust.title")}</h2>
-              <div className="gold-divider mx-auto mt-4" />
+            <div className="text-center mb-20">
+              <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">{t("home.trust.title")}</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("home.trust.subtitle")}</p>
+              <div className="gold-divider mx-auto mt-8" />
             </div>
           </FadeIn>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {trustReasons.map((item, i) => (
               <FadeIn key={i} delay={i * 0.1}>
-                <div className="group text-center p-6 rounded-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 bg-background border border-transparent hover:border-border">
-                  <item.icon className="text-primary mx-auto mb-4" size={30} strokeWidth={1.5} />
-                  <h3 className="font-heading text-base font-semibold text-foreground mb-2">{item.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
+                <div className="group text-center p-8 rounded-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 bg-background border border-border/50 hover:border-primary/50 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="relative">
+                    <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors duration-300">
+                      <item.icon className="text-primary" size={28} strokeWidth={1.5} />
+                    </div>
+                    <h3 className="font-heading text-lg font-semibold text-foreground mb-3">{item.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+                  </div>
                 </div>
               </FadeIn>
             ))}
@@ -173,26 +206,31 @@ const Index = () => {
       {/* Our Approach */}
       <section className="bg-secondary section-padding">
         <div className="container-narrow">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <FadeIn>
               <div>
-                <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground">{t("home.approach.title")}</h2>
-                <div className="gold-divider mt-4 mb-8" />
-                <p className="text-muted-foreground leading-relaxed mb-8">
+                <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">{t("home.approach.title")}</h2>
+                <div className="gold-divider mt-4 mb-10" />
+                <p className="text-lg text-muted-foreground leading-relaxed mb-10">
                   {t("home.approach.desc")}
                 </p>
-                <ul className="space-y-4">
+                <div className="space-y-6">
                   {[
-                    { icon: BarChart, label: t("home.approach.data") },
-                    { icon: Zap, label: t("home.approach.practical") },
-                    { icon: Target, label: t("home.approach.scalable") },
-                  ].map((item) => (
-                    <li key={item.label} className="flex items-center gap-3">
-                      <item.icon className="text-primary flex-shrink-0" size={20} strokeWidth={1.5} />
-                      <span className="text-foreground font-medium text-sm">{item.label}</span>
-                    </li>
+                    { icon: BarChart, label: t("home.approach.data"), desc: "Data-driven insights for informed decisions" },
+                    { icon: Zap, label: t("home.approach.practical"), desc: "Practical solutions for real-world challenges" },
+                    { icon: Target, label: t("home.approach.scalable"), desc: "Scalable strategies that grow with your business" },
+                  ].map((item, index) => (
+                    <div key={item.label} className="flex items-start gap-4 p-4 bg-background/50 rounded-lg border border-border/50">
+                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                        <item.icon className="text-primary" size={20} strokeWidth={1.5} />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-foreground mb-1">{item.label}</h4>
+                        <p className="text-sm text-muted-foreground">{item.desc}</p>
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             </FadeIn>
             <FadeIn delay={0.2}>
@@ -240,13 +278,13 @@ const Index = () => {
       </section>
 
       {/* CTA */}
-      <section className="section-padding" style={{ backgroundColor: "hsl(0 0% 4%)" }}>
+      <section className="section-padding bg-background">
         <div className="container-narrow text-center">
           <FadeIn>
-            <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-background mb-6 leading-tight">
+            <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
               {t("home.cta.title")}
             </h2>
-            <p className="text-background/60 text-lg mb-10 max-w-xl mx-auto">
+            <p className="text-muted-foreground text-lg mb-10 max-w-xl mx-auto">
               {t("home.cta.desc")}
             </p>
             <Link

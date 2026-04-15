@@ -45,7 +45,12 @@ const PPh21Calculator = () => {
     const ptkpAmount = parseFloat(ptkp) || 54000000;
     
     if (income <= 0) {
-      alert(t('invalidIncome'));
+      // Use a more user-friendly alert
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'fixed top-4 right-4 bg-destructive text-destructive-foreground px-4 py-2 rounded-lg shadow-lg z-50 animate-in slide-in-from-right';
+      errorDiv.textContent = 'Masukkan penghasilan yang valid';
+      document.body.appendChild(errorDiv);
+      setTimeout(() => errorDiv.remove(), 3000);
       return;
     }
 

@@ -1,5 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useTheme } from '@/contexts/ThemeContext';
+import { generateTaxServiceSchema, generateLocalBusinessSchema, generateFinancialServiceSchema } from '@/utils/taxServiceSchema';
 
 interface SEOProps {
   title?: string;
@@ -31,6 +33,7 @@ const SEO = ({
   structuredData 
 }: SEOProps) => {
   const { lang } = useLanguage();
+  const { theme } = useTheme();
   
   const finalTitle = title ? `${title} | JADTRA Consulting` : defaultSEO.title;
   const finalDescription = description || defaultSEO.description;
@@ -86,8 +89,8 @@ const SEO = ({
       <meta name="twitter:creator" content="@jadtraconsulting" />
       
       {/* Additional Meta Tags */}
-      <meta name="theme-color" content="#000000" />
-      <meta name="msapplication-TileColor" content="#000000" />
+      <meta name="theme-color" content={theme === 'dark' ? '#000000' : '#ffffff'} />
+      <meta name="msapplication-TileColor" content={theme === 'dark' ? '#000000' : '#ffffff'} />
       <meta name="application-name" content="JADTRA Consulting" />
       <meta name="apple-mobile-web-app-title" content="JADTRA Consulting" />
       <meta name="apple-mobile-web-app-capable" content="yes" />

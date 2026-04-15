@@ -45,7 +45,7 @@ const About = () => {
         </div>
       </section>
 
-      <section className="bg-secondary section-padding">
+      <section className="bg-secondary dark:bg-secondary/80 section-padding">
         <div className="container-narrow max-w-3xl">
           <FadeIn>
             <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-6">{t("about.overview.title")}</h2>
@@ -86,7 +86,7 @@ const About = () => {
         </div>
       </section>
 
-      <section className="bg-secondary section-padding">
+      <section className="bg-secondary dark:bg-secondary/80 section-padding">
         <div className="container-narrow">
           <FadeIn>
             <div className="text-center mb-16">

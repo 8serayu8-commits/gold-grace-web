@@ -32,15 +32,33 @@ const usePerformanceMonitoring = () => {
   const metricsRef = useRef<Partial<PerformanceMetrics>>({});
   const observersRef = useRef<Set<PerformanceObserver>>(new Set());
 
-  // Load Web Vitals library
+  // Load Web Vitals library with optimized loading
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js';
-    script.async = true;
-    script.onload = () => {
-      initializeWebVitals();
+    // Use requestIdleCallback for non-blocking loading
+    const loadWebVitals = () => {
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js';
+      script.async = true;
+      script.defer = true; // Add defer for better loading
+      script.onload = () => {
+        // Initialize after script loads
+        requestIdleCallback(() => {
+          initializeWebVitals();
+        });
+      };
+      script.onerror = () => {
+        console.warn('Failed to load Web Vitals library');
+      };
+      document.head.appendChild(script);
     };
-    document.head.appendChild(script);
+
+    // Load Web Vitals after critical resources
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadWebVitals, { timeout: 3000 });
+    } else {
+      // Fallback for browsers without requestIdleCallback
+      setTimeout(loadWebVitals, 1000);
+    }
 
     return () => {
       // Cleanup observers
@@ -106,16 +124,79 @@ const usePerformanceMonitoring = () => {
       sessionId: getSessionId(),
     };
 
-    // Send to your analytics API
-    fetch('/api/analytics/web-vitals', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    }).catch(error => {
-      console.warn('Failed to send web vitals:', error);
-    });
+    // Send to your analytics API with keepalive and non-blocking optimizations
+    const sendAnalytics = () => {
+      // Use navigator.sendBeacon if available for better performance
+      if ('sendBeacon' in navigator) {
+        const data = new Blob([JSON.stringify(payload)], {
+          type: 'application/json'
+        });
+        
+        const success = navigator.sendBeacon('/api/analytics/web-vitals', data);
+        if (success) {
+          console.log('Web vitals sent via sendBeacon');
+          return;
+        }
+      }
+
+      // Fallback to fetch with keepalive
+      fetch('/api/analytics/web-vitals', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+        keepalive: true, // Keep connection alive for better performance
+        priority: 'low', // Low priority for non-critical requests
+      })
+      .then(async (response) => {
+        if (!response.ok) {
+          // Handle different error statuses
+          if (response.status === 405) {
+            console.warn('Web vitals endpoint does not support POST method');
+          } else if (response.status === 400) {
+            const errorData = await response.json().catch(() => ({}));
+            console.warn('Invalid web vitals data:', errorData.error || 'Bad request');
+          } else if (response.status >= 500) {
+            console.warn('Server error when sending web vitals:', response.status);
+          } else {
+            console.warn('Unexpected response status:', response.status);
+          }
+          return;
+        }
+        
+        // Success case
+        return response.json();
+      })
+      .then((data) => {
+        if (data) {
+          console.log('Web vitals sent successfully:', data.receivedAt);
+        }
+      })
+      .catch(error => {
+        // Network errors, CORS issues, etc.
+        console.warn('Failed to send web vitals:', error.message || error);
+        
+        // Store failed metrics locally for retry later
+        const failedMetrics = JSON.parse(localStorage.getItem('failed_web_vitals') || '[]');
+        failedMetrics.push({ ...payload, failedAt: Date.now() });
+        
+        // Keep only last 10 failed metrics
+        if (failedMetrics.length > 10) {
+          failedMetrics.splice(0, failedMetrics.length - 10);
+        }
+        
+        localStorage.setItem('failed_web_vitals', JSON.stringify(failedMetrics));
+      });
+    };
+
+    // Send analytics in a non-blocking way
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(sendAnalytics, { timeout: 2000 });
+    } else {
+      // Use setTimeout as fallback
+      setTimeout(sendAnalytics, 0);
+    }
   };
 
   const getSessionId = () => {

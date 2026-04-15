@@ -68,7 +68,7 @@ const Services = () => {
       </section>
 
       {services.map((s, i) => (
-        <section key={i} className={`section-padding ${i % 2 === 0 ? "bg-secondary" : ""}`}>
+        <section key={i} className={`section-padding ${i % 2 === 0 ? "bg-secondary dark:bg-secondary/80" : "bg-background dark:bg-background"}`}>
           <div className="container-narrow max-w-3xl">
             <FadeIn>
               <div className="flex items-start gap-5">

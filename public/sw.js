@@ -17,7 +17,7 @@ const STATIC_ASSETS = [
 const API_CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 const STATIC_CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
 
-// Install event - cache static assets
+// Install event - cache static assets with error handling
 self.addEventListener('install', (event) => {
   console.log('[SW] Installing service worker v1.2.0');
   
@@ -29,6 +29,11 @@ self.addEventListener('install', (event) => {
       })
       .then(() => {
         console.log('[SW] Static assets cached successfully');
+        return self.skipWaiting();
+      })
+      .catch((error) => {
+        console.error('[SW] Failed to cache static assets:', error);
+        // Continue installation even if caching fails
         return self.skipWaiting();
       })
   );
@@ -57,32 +62,38 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event - serve from cache with network fallback
+// Fetch event - serve from cache with network fallback and crash prevention
 self.addEventListener('fetch', (event) => {
-  const { request } = event;
-  const url = new URL(request.url);
+  try {
+    const { request } = event;
+    const url = new URL(request.url);
 
-  // Skip non-GET requests and chrome extensions
-  if (request.method !== 'GET' || url.protocol === 'chrome-extension:') {
-    return;
-  }
-
-  // Handle different types of requests
-  if (url.origin === self.location.origin) {
-    // Same-origin requests
-    if (STATIC_ASSETS.includes(url.pathname) || url.pathname === '/') {
-      // Static assets - cache first strategy
-      event.respondWith(cacheFirst(request));
-    } else if (url.pathname.startsWith('/blog/') || url.pathname.startsWith('/tax-calculator')) {
-      // Dynamic pages - network first strategy
-      event.respondWith(networkFirst(request));
-    } else {
-      // Other same-origin requests - stale while revalidate
-      event.respondWith(staleWhileRevalidate(request));
+    // Skip non-GET requests and chrome extensions
+    if (request.method !== 'GET' || url.protocol === 'chrome-extension:') {
+      return;
     }
-  } else {
-    // Cross-origin requests - network only
-    event.respondWith(networkOnly(request));
+
+    // Handle different types of requests with error handling
+    if (url.origin === self.location.origin) {
+      // Same-origin requests
+      if (STATIC_ASSETS.includes(url.pathname) || url.pathname === '/') {
+        // Static assets - cache first strategy
+        event.respondWith(cacheFirst(request).catch(() => networkOnly(request)));
+      } else if (url.pathname.startsWith('/blog/') || url.pathname.startsWith('/tax-calculator')) {
+        // Dynamic pages - network first strategy
+        event.respondWith(networkFirst(request).catch(() => cacheFirst(request)));
+      } else {
+        // Other same-origin requests - stale while revalidate
+        event.respondWith(staleWhileRevalidate(request).catch(() => networkOnly(request)));
+      }
+    } else {
+      // Cross-origin requests - network only
+      event.respondWith(networkOnly(request));
+    }
+  } catch (error) {
+    console.error('[SW] Fetch error:', error);
+    // Fallback to network if anything fails
+    event.respondWith(networkOnly(event.request));
   }
 });
 

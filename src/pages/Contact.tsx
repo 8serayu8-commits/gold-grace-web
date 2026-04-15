@@ -144,7 +144,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">{t("contact.form.attachments") || "Attachments"}</label>
-                  <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 transition-colors">
+                  <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 dark:hover:border-primary/60 transition-colors">
                     <input
                       type="file"
                       multiple
