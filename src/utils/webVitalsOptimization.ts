@@ -24,7 +24,7 @@ export const optimizeFCP = () => {
     criticalCSS.rel = 'preload';
     criticalCSS.href = '/assets/index.css';
     criticalCSS.as = 'style';
-    criticalCSS.onload = function() {
+    criticalCSS.onload = function(this: HTMLLinkElement) {
       this.onload = null;
       this.rel = 'stylesheet';
     };
@@ -60,7 +60,7 @@ export const optimizeFCP = () => {
     images.forEach(img => {
       const imgPreload = document.createElement('link');
       imgPreload.rel = 'preload';
-      imgPreload.href = img.dataset.src!;
+      imgPreload.href = (img as HTMLElement).dataset.src!;
       imgPreload.as = 'image';
       document.head.appendChild(imgPreload);
     });
@@ -126,8 +126,9 @@ export const optimizeLCP = () => {
     // Add defer to non-critical scripts
     const scripts = document.querySelectorAll('script:not([defer]):not([async])');
     scripts.forEach(script => {
-      if (!script.src.includes('critical') && !script.textContent?.includes('critical')) {
-        script.defer = true;
+      const s = script as HTMLScriptElement;
+      if (!s.src.includes('critical') && !s.textContent?.includes('critical')) {
+        s.defer = true;
       }
     });
   };
@@ -161,7 +162,7 @@ export const optimizeCLS = () => {
       if (!container.hasAttribute('data-skeleton')) {
         const skeleton = document.createElement('div');
         skeleton.className = 'animate-pulse bg-muted rounded';
-        skeleton.style.height = container.getAttribute('data-height') || '200px';
+        (skeleton as HTMLElement).style.height = container.getAttribute('data-height') || '200px';
         skeleton.setAttribute('data-skeleton', 'true');
         container.appendChild(skeleton);
       }
@@ -173,8 +174,8 @@ export const optimizeCLS = () => {
     // Use transform instead of changing top/left properties
     const animatedElements = document.querySelectorAll('[data-animate]');
     animatedElements.forEach(element => {
-      element.style.transform = 'translateY(0)';
-      element.style.transition = 'transform 0.3s ease';
+      (element as HTMLElement).style.transform = 'translateY(0)';
+      (element as HTMLElement).style.transition = 'transform 0.3s ease';
     });
   };
 

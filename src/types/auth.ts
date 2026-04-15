@@ -1,4 +1,4 @@
-export type UserRole = 'super_admin' | 'admin';
+export type UserRole = 'super_admin' | 'admin' | 'staff';
 
 export interface User {
   id: string;
@@ -43,12 +43,18 @@ export const ROLE_PERMISSIONS: Record<UserRole, Permission[]> = {
     { resource: 'documents', actions: ['create', 'read', 'update'] },
     { resource: 'reports', actions: ['read'] },
   ],
+  staff: [
+    { resource: 'clients', actions: ['read'] },
+    { resource: 'projects', actions: ['read'] },
+    { resource: 'documents', actions: ['read'] },
+  ],
 };
 
 // Role hierarchy
 export const ROLE_HIERARCHY: Record<UserRole, number> = {
-  super_admin: 2,
-  admin: 1,
+  super_admin: 3,
+  admin: 2,
+  staff: 1,
 };
 
 export interface MenuItem {
