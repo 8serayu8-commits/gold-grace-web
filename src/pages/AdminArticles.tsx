@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
+import ArticleEditor from '@/components/ArticleEditor';
 import { 
   FileText, 
   Plus, 
@@ -16,7 +17,8 @@ import {
   ChevronDown,
   CheckCircle,
   Clock,
-  AlertCircle
+  AlertCircle,
+  Loader2
 } from 'lucide-react';
 
 interface Article {
@@ -25,13 +27,20 @@ interface Article {
   slug: string;
   content: string;
   excerpt: string;
-  author: string;
+  featured_image_url?: string;
+  author_id?: string;
+  author?: string;
   status: 'draft' | 'published' | 'archived';
-  published_at: string;
+  published_at?: string;
   created_at: string;
   updated_at: string;
   read_time: number;
   tags: string[];
+  meta_title?: string;
+  meta_description?: string;
+  og_image_url?: string;
+  view_count: number;
+  is_featured: boolean;
 }
 
 const AdminArticles = () => {
@@ -41,6 +50,10 @@ const AdminArticles = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [showFilters, setShowFilters] = useState(false);
+  const [editingArticle, setEditingArticle] = useState<Article | null>(null);
+  const [showEditor, setShowEditor] = useState(false);
+  const [editorMode, setEditorMode] = useState<'create' | 'edit'>('create');
+  const [deleting, setDeleting] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
@@ -72,53 +85,36 @@ const AdminArticles = () => {
 
   const loadArticles = async () => {
     try {
-      // For now, we'll use mock data since we haven't created the articles table yet
-      const mockArticles: Article[] = [
-        {
-          id: '1',
-          title: 'Understanding PPh 21 Tax Regulations',
-          slug: 'understanding-pph-21-tax-regulations',
-          content: 'Comprehensive guide to PPh 21 tax regulations...',
-          excerpt: 'Learn about the latest PPh 21 tax regulations and how they affect your business.',
-          author: 'Admin',
-          status: 'published',
-          published_at: '2024-01-15T10:00:00Z',
-          created_at: '2024-01-15T10:00:00Z',
-          updated_at: '2024-01-15T10:00:00Z',
-          read_time: 5,
-          tags: ['Tax', 'PPh 21', 'Regulations']
-        },
-        {
-          id: '2',
-          title: 'Digital Transformation for Small Businesses',
-          slug: 'digital-transformation-small-businesses',
-          content: 'How small businesses can leverage digital transformation...',
-          excerpt: 'Discover strategies for successful digital transformation in small businesses.',
-          author: 'Admin',
-          status: 'draft',
-          published_at: '2024-01-20T14:00:00Z',
-          created_at: '2024-01-20T14:00:00Z',
-          updated_at: '2024-01-20T14:00:00Z',
-          read_time: 8,
-          tags: ['Digital', 'Transformation', 'Small Business']
-        },
-        {
-          id: '3',
-          title: 'Year-End Tax Planning Tips',
-          slug: 'year-end-tax-planning-tips',
-          content: 'Essential tax planning strategies for year-end...',
-          excerpt: 'Maximize your tax savings with these year-end planning tips.',
-          author: 'Admin',
-          status: 'published',
-          published_at: '2024-01-25T09:00:00Z',
-          created_at: '2024-01-25T09:00:00Z',
-          updated_at: '2024-01-25T09:00:00Z',
-          read_time: 6,
-          tags: ['Tax Planning', 'Year-End', 'Savings']
-        }
-      ];
+      const { data, error } = await supabase
+        .from('articles')
+        .select('*')
+        .order('created_at', { ascending: false });
 
-      setArticles(mockArticles);
+      if (error) {
+        console.error('Error loading articles:', error);
+        // Fallback to mock data if table doesn't exist
+        const mockArticles: Article[] = [
+          {
+            id: '1',
+            title: 'Understanding PPh 21 Tax Regulations',
+            slug: 'understanding-pph-21-tax-regulations',
+            content: 'Comprehensive guide to PPh 21 tax regulations...',
+            excerpt: 'Learn about the latest PPh 21 tax regulations and how they affect your business.',
+            author: 'Admin',
+            status: 'published',
+            published_at: '2024-01-15T10:00:00Z',
+            created_at: '2024-01-15T10:00:00Z',
+            updated_at: '2024-01-15T10:00:00Z',
+            read_time: 5,
+            tags: ['Tax', 'PPh 21', 'Regulations'],
+            view_count: 0,
+            is_featured: false
+          }
+        ];
+        setArticles(mockArticles);
+      } else {
+        setArticles(data || []);
+      }
     } catch (error) {
       console.error('Error loading articles:', error);
     } finally {
@@ -129,6 +125,55 @@ const AdminArticles = () => {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate('/admin/login');
+  };
+
+  const handleCreateArticle = () => {
+    setEditingArticle(null);
+    setEditorMode('create');
+    setShowEditor(true);
+  };
+
+  const handleEditArticle = (article: Article) => {
+    setEditingArticle(article);
+    setEditorMode('edit');
+    setShowEditor(true);
+  };
+
+  const handleDeleteArticle = async (articleId: string) => {
+    if (!confirm('Are you sure you want to delete this article?')) return;
+    
+    setDeleting(articleId);
+    try {
+      const { error } = await supabase
+        .from('articles')
+        .delete()
+        .eq('id', articleId);
+
+      if (error) throw error;
+
+      // Remove from local state
+      setArticles(prev => prev.filter(article => article.id !== articleId));
+    } catch (error) {
+      console.error('Error deleting article:', error);
+      alert('Failed to delete article');
+    } finally {
+      setDeleting(null);
+    }
+  };
+
+  const handleSaveArticle = (article: Article) => {
+    if (editorMode === 'create') {
+      setArticles(prev => [article, ...prev]);
+    } else {
+      setArticles(prev => prev.map(a => a.id === article.id ? article : a));
+    }
+    setShowEditor(false);
+    setEditingArticle(null);
+  };
+
+  const handleCancelEditor = () => {
+    setShowEditor(false);
+    setEditingArticle(null);
   };
 
   const filteredArticles = articles.filter(article => {
@@ -175,6 +220,17 @@ const AdminArticles = () => {
           <p className="text-muted-foreground">Loading articles...</p>
         </div>
       </div>
+    );
+  }
+
+  if (showEditor) {
+    return (
+      <ArticleEditor
+        article={editingArticle}
+        onSave={handleSaveArticle}
+        onCancel={handleCancelEditor}
+        mode={editorMode}
+      />
     );
   }
 
@@ -265,13 +321,13 @@ const AdminArticles = () => {
             </div>
 
             {/* Add New Article */}
-            <Link
-              to="/admin/articles/new"
+            <button
+              onClick={handleCreateArticle}
               className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
             >
               <Plus className="w-4 h-4" />
               New Article
-            </Link>
+            </button>
           </div>
         </div>
 
@@ -307,13 +363,13 @@ const AdminArticles = () => {
                     <td colSpan={6} className="px-6 py-12 text-center">
                       <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                       <p className="text-gray-500">No articles found</p>
-                      <Link
-                        to="/admin/articles/new"
+                      <button
+                        onClick={handleCreateArticle}
                         className="inline-flex items-center gap-2 mt-4 text-primary hover:text-primary/80 transition-colors"
                       >
                         <Plus className="w-4 h-4" />
                         Create your first article
-                      </Link>
+                      </button>
                     </td>
                   </tr>
                 ) : (
@@ -362,14 +418,30 @@ const AdminArticles = () => {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center justify-end gap-2">
-                          <button className="p-1 text-gray-400 hover:text-gray-600 transition-colors">
+                          <button 
+                            className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                            title="View article"
+                          >
                             <Eye className="w-4 h-4" />
                           </button>
-                          <button className="p-1 text-gray-400 hover:text-gray-600 transition-colors">
+                          <button 
+                            onClick={() => handleEditArticle(article)}
+                            className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                            title="Edit article"
+                          >
                             <Edit className="w-4 h-4" />
                           </button>
-                          <button className="p-1 text-gray-400 hover:text-red-600 transition-colors">
-                            <Trash2 className="w-4 h-4" />
+                          <button 
+                            onClick={() => handleDeleteArticle(article.id)}
+                            disabled={deleting === article.id}
+                            className="p-1 text-gray-400 hover:text-red-600 transition-colors disabled:opacity-50"
+                            title="Delete article"
+                          >
+                            {deleting === article.id ? (
+                              <Loader2 className="w-4 h-4 animate-spin" />
+                            ) : (
+                              <Trash2 className="w-4 h-4" />
+                            )}
                           </button>
                         </div>
                       </td>
