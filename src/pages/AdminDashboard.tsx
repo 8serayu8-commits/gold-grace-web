@@ -29,32 +29,30 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if user is authenticated
-    const checkAuth = async () => {
+    // Get current session (ProtectedRoute ensures user is authenticated)
+    const getCurrentUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       
-      if (!session) {
-        navigate('/admin/login');
-        return;
+      if (session) {
+        setUser(session.user);
+        loadDashboardData();
       }
-
-      setUser(session.user);
-      loadDashboardData();
     };
 
-    checkAuth();
+    getCurrentUser();
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
-        navigate('/admin/login');
-      } else {
+      if (session) {
         setUser(session.user);
+      } else {
+        // ProtectedRoute will handle redirect
+        setUser(null);
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate]);
+  }, []);
 
   const loadDashboardData = async () => {
     try {
