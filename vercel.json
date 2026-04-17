@@ -4,11 +4,6 @@
   "installCommand": "npm install",
   "framework": "vite",
 
-  "domains": [
-    "your-new-domain.com",
-    "www.your-new-domain.com"
-  ],
-
   "rewrites": [
     {
       "source": "/api/(.*)",
@@ -32,6 +27,7 @@
     }
   ],
 
+  
   "headers": [
     {
       "source": "/robots.txt",
