@@ -16,6 +16,8 @@ import Blog from "./pages/Blog.tsx";
 import BlogPost from "./pages/BlogPost.tsx";
 import TaxCalculator from "./pages/TaxCalculator.tsx";
 import InternalSystem from "./pages/InternalSystem.tsx";
+import AdminLogin from "./pages/AdminLogin.tsx";
+import AdminDashboard from "./pages/AdminDashboard.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -40,6 +42,8 @@ const App = () => (
                     <Route path="/blog/:postId" element={<BlogPost />} />
                     <Route path="/tax-calculator" element={<TaxCalculator />} />
                     <Route path="/internal" element={<InternalSystem />} />
+                    <Route path="/admin/login" element={<AdminLogin />} />
+                    <Route path="/admin/dashboard" element={<AdminDashboard />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </AppWrapper>
