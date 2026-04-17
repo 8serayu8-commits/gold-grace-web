@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
+import { api } from '@/lib/api';
 import ArticleEditor from '@/components/ArticleEditor';
 import { 
   FileText, 
@@ -60,7 +60,7 @@ const AdminArticles = () => {
   useEffect(() => {
     // Get current session (ProtectedRoute ensures user is authenticated)
     const getCurrentUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { session, error } = await api.auth.getCurrentSession();
       
       if (session) {
         setUser(session.user);
@@ -71,7 +71,7 @@ const AdminArticles = () => {
     getCurrentUser();
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = api.auth.onAuthStateChange((_event, session) => {
       if (session) {
         setUser(session.user);
       } else {
@@ -85,10 +85,7 @@ const AdminArticles = () => {
 
   const loadArticles = async () => {
     try {
-      const { data, error } = await supabase
-        .from('articles')
-        .select('*')
-        .order('created_at', { ascending: false });
+      const { data, error } = await api.articles.getAll();
 
       if (error) {
         console.error('Error loading articles:', error);
@@ -123,7 +120,10 @@ const AdminArticles = () => {
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    const { error } = await api.auth.signOut();
+    if (error) {
+      console.error('Logout error:', error);
+    }
     navigate('/admin/login');
   };
 
@@ -144,10 +144,7 @@ const AdminArticles = () => {
     
     setDeleting(articleId);
     try {
-      const { error } = await supabase
-        .from('articles')
-        .delete()
-        .eq('id', articleId);
+      const { error } = await api.articles.delete(articleId);
 
       if (error) throw error;
 

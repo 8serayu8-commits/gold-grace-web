@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
+import { api } from '@/lib/api';
 import { 
   Save, 
   X, 
@@ -91,26 +91,15 @@ const ArticleEditor = ({ article, onSave, onCancel, mode }: ArticleEditorProps) 
     setError('');
 
     try {
-      // Generate unique filename
-      const fileName = `${Date.now()}-${file.name}`;
-      const filePath = `article-images/${fileName}`;
+      // Use API layer for image upload
+      const { data, error } = await api.storage.uploadArticleImage(file);
 
-      // Upload to Supabase Storage
-      const { data, error: uploadError } = await supabase.storage
-        .from('article-images')
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      // Get public URL
-      const { data: { publicUrl } } = supabase.storage
-        .from('article-images')
-        .getPublicUrl(filePath);
+      if (error) throw error;
 
       setFormData(prev => ({
         ...prev,
-        featured_image_url: publicUrl,
-        og_image_url: publicUrl
+        featured_image_url: data.publicUrl,
+        og_image_url: data.publicUrl
       }));
 
       setSuccess('Image uploaded successfully!');
@@ -136,32 +125,20 @@ const ArticleEditor = ({ article, onSave, onCancel, mode }: ArticleEditorProps) 
       // Prepare article data
       const articleData = {
         ...formData,
-        published_at: formData.status === 'published' ? new Date().toISOString() : null,
-        updated_at: new Date().toISOString()
+        published_at: formData.status === 'published' ? new Date().toISOString() : null
       };
 
+      let result;
       if (mode === 'create') {
         // Create new article
-        const { data, error } = await supabase
-          .from('articles')
-          .insert(articleData)
-          .select()
-          .single();
-
-        if (error) throw error;
-        onSave(data);
+        result = await api.articles.create(articleData);
       } else {
         // Update existing article
-        const { data, error } = await supabase
-          .from('articles')
-          .update(articleData)
-          .eq('id', article?.id)
-          .select()
-          .single();
-
-        if (error) throw error;
-        onSave(data);
+        result = await api.articles.update(article.id!, articleData);
       }
+
+      if (result.error) throw result.error;
+      onSave(result.data);
 
       setSuccess('Article saved successfully!');
     } catch (error) {

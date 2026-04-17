@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
+import { api } from '@/lib/api';
 import { 
   BarChart3, 
   Users, 
@@ -38,7 +38,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     // Get current session (ProtectedRoute ensures user is authenticated)
     const getCurrentUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { session, error } = await api.auth.getCurrentSession();
       
       if (session) {
         setUser(session.user);
@@ -49,7 +49,7 @@ const AdminDashboard = () => {
     getCurrentUser();
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = api.auth.onAuthStateChange((_event, session) => {
       if (session) {
         setUser(session.user);
       } else {
@@ -63,26 +63,22 @@ const AdminDashboard = () => {
 
   const loadDashboardData = async () => {
     try {
+      // Load recent articles
+      const { data: articles, error: articlesError } = await api.articles.getAll({ limit: 5 });
+
       // Load recent contacts
-      const { data: contacts, error: contactsError } = await supabase
-        .from('contact_submissions')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(5);
+      const { data: contacts, error: contactsError } = await api.contacts.getAll({ limit: 5 });
 
       // Load recent calculations
-      const { data: calculations, error: calculationsError } = await supabase
-        .from('tax_calculator_history')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(5);
+      const { data: calculations, error: calculationsError } = await api.taxCalculator.getAll({ limit: 5 });
 
-      // Load recent articles
-      const { data: articles, error: articlesError } = await supabase
-        .from('articles')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(5);
+      if (!articlesError && articles) {
+        setStats(prev => ({
+          ...prev,
+          totalArticles: articles.length,
+          recentArticles: articles
+        }));
+      }
 
       if (!contactsError && contacts) {
         setStats(prev => ({
@@ -99,14 +95,6 @@ const AdminDashboard = () => {
           recentCalculations: calculations
         }));
       }
-
-      if (!articlesError && articles) {
-        setStats(prev => ({
-          ...prev,
-          totalArticles: articles.length,
-          recentArticles: articles
-        }));
-      }
     } catch (error) {
       console.error('Error loading dashboard data:', error);
     } finally {
@@ -115,7 +103,10 @@ const AdminDashboard = () => {
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    const { error } = await api.auth.signOut();
+    if (error) {
+      console.error('Logout error:', error);
+    }
     navigate('/admin/login');
   };
 
