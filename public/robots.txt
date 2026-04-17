@@ -23,7 +23,7 @@ Allow: /assets/
 Allow: /public/
 
 # Sitemap location
-Sitemap: https://jadtraconsulting.com/sitemap.xml
+Sitemap: https://your-new-domain.com/sitemap.xml
 
 # Major search engines
 User-agent: Googlebot
