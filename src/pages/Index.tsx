@@ -154,13 +154,13 @@ const Index = () => {
               <FadeIn key={i} delay={i * 0.1}>
                 <div className="group p-10 bg-background border border-border rounded-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-500" />
-                  <div className="relative">
-                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
+                  <div className="relative text-center">
+                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300 mx-auto">
                       <s.icon className="text-primary" size={32} strokeWidth={1.5} />
                     </div>
                     <h3 className="font-heading text-2xl font-semibold text-foreground mb-4">{s.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed text-base">{s.desc}</p>
-                    <div className="mt-6 pt-6 border-t border-border/50">
+                    <p className="text-muted-foreground leading-relaxed text-base mb-6">{s.desc}</p>
+                    <div className="pt-6 border-t border-border/50">
                       <Link 
                         to="/services" 
                         className="inline-flex items-center text-primary font-medium text-sm hover:text-primary/80 transition-colors"
@@ -246,9 +246,9 @@ const Index = () => {
         <div className="container-narrow">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <FadeIn>
-              <div>
+              <div className="text-center lg:text-left">
                 <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">{t("home.approach.title")}</h2>
-                <div className="gold-divider mt-4 mb-10" />
+                <div className="gold-divider mx-auto lg:mx-0 mt-4 mb-10" />
                 <p className="text-lg text-muted-foreground leading-relaxed mb-10">
                   {t("home.approach.desc")}
                 </p>
@@ -258,11 +258,11 @@ const Index = () => {
                     { icon: Zap, label: t("home.approach.practical"), desc: "Practical solutions for real-world challenges" },
                     { icon: Target, label: t("home.approach.scalable"), desc: "Scalable strategies that grow with your business" },
                   ].map((item, index) => (
-                    <div key={item.label} className="flex items-start gap-4 p-4 bg-background/50 rounded-lg border border-border/50">
+                    <div key={item.label} className="flex items-center gap-4 p-4 bg-background/50 rounded-lg border border-border/50">
                       <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                         <item.icon className="text-primary" size={20} strokeWidth={1.5} />
                       </div>
-                      <div>
+                      <div className="text-left">
                         <h4 className="font-semibold text-foreground mb-1">{item.label}</h4>
                         <p className="text-sm text-muted-foreground">{item.desc}</p>
                       </div>
@@ -305,7 +305,9 @@ const Index = () => {
             {whyUs.map((item, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div className="text-center group p-6 rounded-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                  <item.icon className="text-primary mx-auto mb-4" size={32} strokeWidth={1.5} />
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors duration-300">
+                    <item.icon className="text-primary" size={32} strokeWidth={1.5} />
+                  </div>
                   <h3 className="font-heading text-lg font-semibold text-foreground mb-2">{item.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
                 </div>

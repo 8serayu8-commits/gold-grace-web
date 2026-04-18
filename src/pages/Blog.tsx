@@ -9,6 +9,8 @@ export default function Blog() {
     const loadArticles = async () => {
       try {
         const { data, error } = await api.articles.getPublished()
+        console.log("DATA ARTICLES:", data)
+        console.log("ERROR ARTICLES:", error)
         if (error) {
           console.error('Error loading articles:', error)
         } else {
