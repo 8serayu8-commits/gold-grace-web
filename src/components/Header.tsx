@@ -105,15 +105,15 @@ const Header = () => {
 
       {/* Mobile Nav */}
       {menuOpen && (
-        <nav className="md:hidden bg-background border-t border-border px-6 py-6 flex flex-col gap-4">
+        <nav className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border px-6 py-6 flex flex-col gap-4 shadow-lg z-40">
           {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className={`text-sm tracking-wide uppercase ${
+              className={`text-sm tracking-wide uppercase py-2 transition-colors duration-200 ${
                 location.pathname === item.path
                   ? "text-primary font-medium"
-                  : "text-muted-foreground"
+                  : "text-muted-foreground hover:text-primary"
               }`}
             >
               {item.name}
