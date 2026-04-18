@@ -61,8 +61,10 @@ const Services = () => {
       <section className="section-padding">
         <div className="container-narrow">
           <FadeIn>
-            <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground">{t("services.title")}</h1>
-            <div className="gold-divider mt-4" />
+            <div className="text-center max-w-4xl mx-auto">
+              <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground">{t("services.title")}</h1>
+              <div className="gold-divider mt-4 mx-auto" />
+            </div>
           </FadeIn>
         </div>
       </section>

@@ -51,7 +51,7 @@ export default function Blog() {
         <section className="section-padding">
           <div className="container-narrow">
             <FadeIn>
-              <div className="text-center mb-12">
+              <div className="text-center max-w-4xl mx-auto mb-12">
                 <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">Blog</h1>
                 <div className="gold-divider mx-auto" />
                 <p className="text-lg text-muted-foreground mt-6">
