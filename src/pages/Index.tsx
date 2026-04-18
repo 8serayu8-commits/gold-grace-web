@@ -64,7 +64,7 @@ const Index = () => {
         <div className="absolute inset-0 bg-black/5 backdrop-blur-sm" />
         <div className="container-narrow relative">
           <FadeIn>
-            <div className="max-w-4xl text-center">
+            <div className="text-center max-w-4xl mx-auto">
               <div className="mb-8">
                 <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-6 shadow-lg">
                   <div className="w-3 h-3 bg-primary rounded-full animate-pulse shadow-lg shadow-primary/50" />
