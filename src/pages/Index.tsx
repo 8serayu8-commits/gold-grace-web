@@ -137,9 +137,8 @@ const Index = () => {
                 <div className="w-3 h-3 bg-primary rounded-full animate-pulse" />
                 <span className="text-sm font-medium text-primary">Our Services</span>
               </div>
-              <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">{t("home.services.title")}</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("home.services.subtitle")}</p>
-              <div className="gold-divider mx-auto mt-8" />
+              <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-8">{t("home.services.title")}</h2>
+              <div className="gold-divider mx-auto" />
             </div>
           </FadeIn>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
