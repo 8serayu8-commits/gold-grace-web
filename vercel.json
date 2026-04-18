@@ -10,19 +10,7 @@
       "destination": "/api/$1"
     },
     {
-      "source": "/blog",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/blog/:path*",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/tax-calculator",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/:path*",
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
   ],
