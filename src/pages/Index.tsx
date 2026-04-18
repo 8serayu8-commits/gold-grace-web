@@ -72,7 +72,7 @@ const Index = () => {
                 </div>
               </div>
               <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight text-foreground mb-8 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent drop-shadow-lg">
-                {t("home.hero.title")}
+                Trusted Consulting Partner for Business Growth
               </h1>
               <div className="gold-divider mx-auto mb-10" />
               <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground leading-relaxed max-w-3xl mb-16 font-light">
