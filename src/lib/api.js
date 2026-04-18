@@ -317,6 +317,56 @@ export const api = {
       });
     },
 
+    // Validate email format
+    validateEmail: (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    },
+
+    // Sanitize user input to prevent XSS
+    sanitizeInput: (input) => {
+      if (typeof input !== 'string') return '';
+      
+      return input
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;')
+        .replace(/\//g, '&#x2F;')
+        .trim();
+    },
+
+    // Sanitize HTML content (for rich text)
+    sanitizeHTML: (html) => {
+      if (typeof html !== 'string') return '';
+      
+      // Basic HTML sanitization - allow only safe tags
+      const allowedTags = ['p', 'br', 'strong', 'em', 'u', 'ol', 'ul', 'li', 'a', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+      
+      return html
+        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+        .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '')
+        .replace(/<object\b[^<]*(?:(?!<\/object>)<[^<]*)*<\/object>/gi, '')
+        .replace(/<embed\b[^<]*(?:(?!<\/embed>)<[^<]*)*<\/embed>/gi, '')
+        .replace(/javascript:/gi, '')
+        .replace(/on\w+\s*=/gi, '');
+    },
+
+    // Validate file upload
+    validateFileUpload: (file, maxSize = 5 * 1024 * 1024, allowedTypes = ['image/jpeg', 'image/png', 'image/webp']) => {
+      if (!file) return { valid: false, error: 'No file provided' };
+      
+      if (file.size > maxSize) {
+        return { valid: false, error: 'File size too large' };
+      }
+      
+      if (!allowedTypes.includes(file.type)) {
+        return { valid: false, error: 'File type not allowed' };
+      }
+      
+      return { valid: true };
+    },
+
     // Handle API errors
     handleError: (error) => {
       console.error('API Error:', error);
