@@ -635,6 +635,76 @@ export const api = {
         };
       }
     }
+  },
+
+  // Ping API
+  ping: {
+    // Simple ping test
+    send: async (data = null) => {
+      try {
+        const response = await fetch('/api/ping', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data || {})
+        });
+
+        const result = await response.json();
+        
+        if (!response.ok) {
+          return {
+            success: false,
+            error: result.error || 'Ping failed',
+            message: result.message || 'Please try again later',
+            status: response.status
+          };
+        }
+
+        return {
+          success: true,
+          data: result,
+          message: result.message || 'Ping successful'
+        };
+
+      } catch (error) {
+        console.error('Ping error:', error);
+        return {
+          success: false,
+          error: 'Network error',
+          message: 'Failed to ping server. Please check your connection.'
+        };
+      }
+    },
+
+    // Get ping info
+    get: async () => {
+      try {
+        const response = await fetch('/api/ping');
+        const result = await response.json();
+        
+        if (!response.ok) {
+          return {
+            success: false,
+            error: result.error || 'Ping failed',
+            status: response.status
+          };
+        }
+
+        return {
+          success: true,
+          data: result
+        };
+
+      } catch (error) {
+        console.error('Ping GET error:', error);
+        return {
+          success: false,
+          error: 'Network error',
+          message: 'Failed to connect to server'
+        };
+      }
+    }
   }
 };
 
