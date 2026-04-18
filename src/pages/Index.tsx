@@ -57,19 +57,21 @@ const Index = () => {
       <Layout>
       {/* Hero - Enhanced Client Experience */}
       <section className="section-padding relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full bg-gradient-to-br from-primary/10 via-primary/5 to-primary/2 blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-blue-500/5 via-blue-500/3 to-transparent blur-2xl translate-y-1/2 -translate-x-1/4 pointer-events-none animate-pulse" />
-        <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] rounded-full bg-gradient-to-br from-amber-500/3 via-amber-500/1 to-transparent blur-xl translate-x-1/4 translate-y-1/4 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-blue-500/5 to-amber-500/5" />
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full bg-gradient-to-br from-primary/20 via-primary/10 to-primary/5 blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none animate-pulse" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-blue-500/10 via-blue-500/5 to-transparent blur-2xl translate-y-1/2 -translate-x-1/4 pointer-events-none animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] rounded-full bg-gradient-to-br from-amber-500/8 via-amber-500/4 to-transparent blur-xl translate-x-1/4 translate-y-1/4 pointer-events-none animate-pulse" />
+        <div className="absolute inset-0 bg-black/5 backdrop-blur-sm" />
         <div className="container-narrow relative">
           <FadeIn>
             <div className="max-w-4xl text-center">
               <div className="mb-8">
-                <div className="inline-flex items-center gap-3 px-4 py-2 bg-primary/10 rounded-full mb-6">
-                  <div className="w-3 h-3 bg-primary rounded-full animate-pulse" />
+                <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-6 shadow-lg">
+                  <div className="w-3 h-3 bg-primary rounded-full animate-pulse shadow-lg shadow-primary/50" />
                   <span className="text-sm font-medium text-primary">Trusted by 500+ Companies</span>
                 </div>
               </div>
-              <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight text-foreground mb-8 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
+              <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight text-foreground mb-8 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent drop-shadow-lg">
                 {t("home.hero.title")}
               </h1>
               <div className="gold-divider mx-auto mb-10" />
@@ -81,7 +83,7 @@ const Index = () => {
               <div className="flex flex-col lg:flex-row gap-6 items-center justify-center mb-12">
                 <Link
                   to="/contact"
-                  className="group relative px-12 py-6 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground font-semibold text-base uppercase tracking-wider hover:from-primary/90 hover:to-primary/70 hover:shadow-[0_20px_60px_-20px_rgba(212,175,55,0.3)] transition-all duration-500 rounded-xl transform hover:scale-105"
+                  className="group relative px-12 py-6 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground font-semibold text-base uppercase tracking-wider hover:from-primary/90 hover:to-primary/70 hover:shadow-[0_20px_60px_-20px_rgba(212,175,55,0.3)] transition-all duration-500 rounded-xl transform hover:scale-105 backdrop-blur-sm border border-white/20"
                 >
                   <span className="relative z-10">{t("home.hero.cta")}</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -89,7 +91,7 @@ const Index = () => {
                 <div className="hidden lg:block text-foreground/60">or</div>
                 <Link
                   to="/tax-calculator"
-                  className="group relative px-12 py-6 bg-gradient-to-r from-foreground to-foreground/80 text-background font-semibold text-base uppercase tracking-wider hover:from-foreground/90 hover:to-foreground/70 hover:shadow-[0_20px_60px_-20px_rgba(0,0,0,0.3)] transition-all duration-500 rounded-xl transform hover:scale-105 border border-foreground/20 hover:border-foreground/40"
+                  className="group relative px-12 py-6 bg-gradient-to-r from-foreground to-foreground/80 text-background font-semibold text-base uppercase tracking-wider hover:from-foreground/90 hover:to-foreground/70 hover:shadow-[0_20px_60px_-20px_rgba(0,0,0,0.3)] transition-all duration-500 rounded-xl transform hover:scale-105 border border-foreground/20 hover:border-foreground/40 backdrop-blur-sm"
                 >
                   <span className="relative z-10 flex items-center gap-3">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -103,19 +105,31 @@ const Index = () => {
 
               {/* Trust Indicators */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                <div className="text-center p-6 bg-primary/5 rounded-xl border border-primary/20">
+                <div className="group text-center p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                  <div className="w-12 h-12 mx-auto mb-3 bg-primary/20 rounded-full flex items-center justify-center group-hover:bg-primary/30 transition-colors duration-300">
+                    <Award className="text-primary" size={24} />
+                  </div>
                   <div className="text-3xl font-bold text-primary mb-2">15+</div>
                   <div className="text-sm text-muted-foreground">Years Experience</div>
                 </div>
-                <div className="text-center p-6 bg-blue-500/5 rounded-xl border border-blue-500/20">
+                <div className="group text-center p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                  <div className="w-12 h-12 mx-auto mb-3 bg-blue-500/20 rounded-full flex items-center justify-center group-hover:bg-blue-500/30 transition-colors duration-300">
+                    <TrendingUp className="text-blue-600" size={24} />
+                  </div>
                   <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
                   <div className="text-sm text-muted-foreground">Clients Served</div>
                 </div>
-                <div className="text-center p-6 bg-green-500/5 rounded-xl border border-green-500/20">
+                <div className="group text-center p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                  <div className="w-12 h-12 mx-auto mb-3 bg-green-500/20 rounded-full flex items-center justify-center group-hover:bg-green-500/30 transition-colors duration-300">
+                    <CheckCircle2 className="text-green-600" size={24} />
+                  </div>
                   <div className="text-3xl font-bold text-green-600 mb-2">98%</div>
                   <div className="text-sm text-muted-foreground">Client Satisfaction</div>
                 </div>
-                <div className="text-center p-6 bg-amber-500/5 rounded-xl border border-amber-500/20">
+                <div className="group text-center p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                  <div className="w-12 h-12 mx-auto mb-3 bg-amber-500/20 rounded-full flex items-center justify-center group-hover:bg-amber-500/30 transition-colors duration-300">
+                    <ShieldCheck className="text-amber-600" size={24} />
+                  </div>
                   <div className="text-3xl font-bold text-amber-600 mb-2">24/7</div>
                   <div className="text-sm text-muted-foreground">Support Available</div>
                 </div>
@@ -140,10 +154,15 @@ const Index = () => {
       </section>
 
       {/* Services */}
-      <section className="section-padding">
-        <div className="container-narrow">
+      <section className="section-padding relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/3 via-transparent to-blue-500/3" />
+        <div className="container-narrow relative">
           <FadeIn>
             <div className="text-center mb-20">
+              <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-6">
+                <div className="w-3 h-3 bg-primary rounded-full animate-pulse" />
+                <span className="text-sm font-medium text-primary">Our Services</span>
+              </div>
               <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">{t("home.services.title")}</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("home.services.subtitle")}</p>
               <div className="gold-divider mx-auto mt-8" />
@@ -152,21 +171,22 @@ const Index = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {services.map((s, i) => (
               <FadeIn key={i} delay={i * 0.1}>
-                <div className="group p-10 bg-background border border-border rounded-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-500" />
+                <div className="group p-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-500 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-500" />
                   <div className="relative text-center">
-                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300 mx-auto">
-                      <s.icon className="text-primary" size={32} strokeWidth={1.5} />
+                    <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary/30 group-hover:scale-110 transition-all duration-300 mx-auto border border-white/30">
+                      <s.icon className="text-primary" size={36} strokeWidth={1.5} />
                     </div>
-                    <h3 className="font-heading text-2xl font-semibold text-foreground mb-4">{s.title}</h3>
+                    <h3 className="font-heading text-2xl font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-300">{s.title}</h3>
                     <p className="text-muted-foreground leading-relaxed text-base mb-6">{s.desc}</p>
-                    <div className="pt-6 border-t border-border/50">
+                    <div className="pt-6 border-t border-white/20">
                       <Link 
                         to="/services" 
-                        className="inline-flex items-center text-primary font-medium text-sm hover:text-primary/80 transition-colors"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 backdrop-blur-sm border border-primary/30 rounded-full text-primary font-medium text-sm hover:bg-primary/20 hover:border-primary/50 hover:scale-105 transition-all duration-300"
                       >
                         Learn more
-                        <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </Link>
