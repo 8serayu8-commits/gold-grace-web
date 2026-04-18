@@ -65,72 +65,46 @@ const Index = () => {
         <div className="container-narrow relative">
           <FadeIn>
             <div className="text-center max-w-4xl mx-auto">
-              <div className="mb-8">
-                <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-6 shadow-lg">
-                  <div className="w-3 h-3 bg-primary rounded-full animate-pulse shadow-lg shadow-primary/50" />
-                  <span className="text-sm font-medium text-primary">Trusted by 500+ Companies</span>
-                </div>
-              </div>
+              <p className="text-sm uppercase tracking-widest text-muted-foreground mb-4">
+                Trusted by 500+ Companies
+              </p>
               <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight text-foreground mb-8 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent drop-shadow-lg">
                 Trusted Consulting Partner for Business Growth
               </h1>
-              <div className="gold-divider mx-auto mb-10" />
-              <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground leading-relaxed max-w-3xl mb-16 font-light">
-                {t("home.hero.desc")}
+              <p className="text-lg text-muted-foreground mb-10 max-w-3xl mx-auto">
+                Professional consulting services in business, taxation, and digital systems delivering certainty, growth, and sustainability.
               </p>
               
-              {/* Enhanced CTA Section */}
-              <div className="flex flex-col lg:flex-row gap-6 items-center justify-center mb-12">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
                 <Link
                   to="/contact"
-                  className="group relative px-12 py-6 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground font-semibold text-base uppercase tracking-wider hover:from-primary/90 hover:to-primary/70 hover:shadow-[0_20px_60px_-20px_rgba(212,175,55,0.3)] transition-all duration-500 rounded-xl transform hover:scale-105 backdrop-blur-sm border border-white/20"
+                  className="px-6 py-3 rounded-xl bg-primary text-white font-medium hover:bg-primary/90 transition-colors duration-200"
                 >
-                  <span className="relative z-10">{t("home.hero.cta")}</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  Consult Now
                 </Link>
-                <div className="hidden lg:block text-foreground/60">or</div>
                 <Link
                   to="/tax-calculator"
-                  className="group relative px-12 py-6 bg-gradient-to-r from-foreground to-foreground/80 text-background font-semibold text-base uppercase tracking-wider hover:from-foreground/90 hover:to-foreground/70 hover:shadow-[0_20px_60px_-20px_rgba(0,0,0,0.3)] transition-all duration-500 rounded-xl transform hover:scale-105 border border-foreground/20 hover:border-foreground/40 backdrop-blur-sm"
+                  className="px-6 py-3 rounded-xl border border-border hover:border-primary transition-colors duration-200"
                 >
-                  <span className="relative z-10 flex items-center gap-3">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 0h-6m-6 0v3m0 10h9" />
-                    </svg>
-                    {t("taxCalculator")}
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  Tax Calculator
                 </Link>
               </div>
 
-              {/* Trust Indicators */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                <div className="group text-center p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
-                  <div className="w-12 h-12 mx-auto mb-3 bg-primary/20 rounded-full flex items-center justify-center group-hover:bg-primary/30 transition-colors duration-300">
-                    <Award className="text-primary" size={24} />
-                  </div>
-                  <div className="text-3xl font-bold text-primary mb-2">15+</div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div>
+                  <div className="text-2xl font-bold">15+</div>
                   <div className="text-sm text-muted-foreground">Years Experience</div>
                 </div>
-                <div className="group text-center p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
-                  <div className="w-12 h-12 mx-auto mb-3 bg-blue-500/20 rounded-full flex items-center justify-center group-hover:bg-blue-500/30 transition-colors duration-300">
-                    <TrendingUp className="text-blue-600" size={24} />
-                  </div>
-                  <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
+                <div>
+                  <div className="text-2xl font-bold">500+</div>
                   <div className="text-sm text-muted-foreground">Clients Served</div>
                 </div>
-                <div className="group text-center p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
-                  <div className="w-12 h-12 mx-auto mb-3 bg-green-500/20 rounded-full flex items-center justify-center group-hover:bg-green-500/30 transition-colors duration-300">
-                    <CheckCircle2 className="text-green-600" size={24} />
-                  </div>
-                  <div className="text-3xl font-bold text-green-600 mb-2">98%</div>
+                <div>
+                  <div className="text-2xl font-bold">98%</div>
                   <div className="text-sm text-muted-foreground">Client Satisfaction</div>
                 </div>
-                <div className="group text-center p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
-                  <div className="w-12 h-12 mx-auto mb-3 bg-amber-500/20 rounded-full flex items-center justify-center group-hover:bg-amber-500/30 transition-colors duration-300">
-                    <ShieldCheck className="text-amber-600" size={24} />
-                  </div>
-                  <div className="text-3xl font-bold text-amber-600 mb-2">24/7</div>
+                <div>
+                  <div className="text-2xl font-bold">24/7</div>
                   <div className="text-sm text-muted-foreground">Support Available</div>
                 </div>
               </div>
