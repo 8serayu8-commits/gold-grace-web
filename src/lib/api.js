@@ -562,6 +562,79 @@ export const api = {
         };
       }
     }
+  },
+
+  // Health Check API
+  health: {
+    // Check API and service health
+    check: async () => {
+      try {
+        const response = await fetch('/api/health');
+        const data = await response.json();
+        
+        if (!response.ok) {
+          return {
+            success: false,
+            error: data.error || 'Health check failed',
+            status: response.status
+          };
+        }
+
+        return {
+          success: true,
+          data: data
+        };
+
+      } catch (error) {
+        console.error('Health check error:', error);
+        return {
+          success: false,
+          error: 'Network error',
+          message: error.message
+        };
+      }
+    }
+  },
+
+  // Contact Form API
+  contact: {
+    // Submit contact form
+    submit: async (formData) => {
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+        
+        if (!response.ok) {
+          return {
+            success: false,
+            error: data.error || 'Contact form submission failed',
+            message: data.message || 'Please try again later',
+            status: response.status
+          };
+        }
+
+        return {
+          success: true,
+          data: data,
+          message: data.message || 'Contact form submitted successfully'
+        };
+
+      } catch (error) {
+        console.error('Contact form error:', error);
+        return {
+          success: false,
+          error: 'Network error',
+          message: 'Failed to submit contact form. Please check your connection.'
+        };
+      }
+    }
   }
 };
 
