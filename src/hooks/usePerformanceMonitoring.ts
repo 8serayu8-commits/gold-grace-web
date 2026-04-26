@@ -254,7 +254,7 @@ const usePerformanceMonitoring = () => {
       return loadTime > 1000; // Resources taking more than 1 second
     });
 
-    if (slowResources.length > 0) {
+    if (slowResources && slowResources.length > 0 && typeof slowResources.forEach === 'function') {
       slowResources.forEach(resource => {
         if (window.gtag) {
           window.gtag('event', 'slow_resource', {
@@ -281,18 +281,20 @@ const usePerformanceMonitoring = () => {
     // Monitor long tasks
     try {
       const observer = new PerformanceObserver((list) => {
-        list.getEntries().forEach((entry) => {
-          if (entry.duration > 50) { // Long task threshold
-            if (window.gtag) {
-              window.gtag('event', 'long_task', {
-                event_category: 'Performance',
-                event_label: entry.name,
-                value: Math.round(entry.duration),
-                non_interaction: true,
-              });
+        if (list && list.getEntries && typeof list.getEntries().forEach === 'function') {
+          list.getEntries().forEach((entry) => {
+            if (entry.duration > 50) { // Long task threshold
+              if (window.gtag) {
+                window.gtag('event', 'long_task', {
+                  event_category: 'Performance',
+                  event_label: entry.name,
+                  value: Math.round(entry.duration),
+                  non_interaction: true,
+                });
+              }
             }
-          }
-        });
+          });
+        }
       });
 
       observer.observe({ entryTypes: ['longtask'] });

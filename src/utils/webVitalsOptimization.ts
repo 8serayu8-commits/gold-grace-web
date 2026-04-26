@@ -129,12 +129,14 @@ export const optimizeLCP = () => {
   const optimizeJavaScript = () => {
     // Add defer to non-critical scripts
     const scripts = document.querySelectorAll('script:not([defer]):not([async])');
-    scripts.forEach(script => {
-      const s = script as HTMLScriptElement;
-      if (!s.src.includes('critical') && !s.textContent?.includes('critical')) {
-        s.defer = true;
-      }
-    });
+    if (scripts && typeof scripts.forEach === 'function') {
+      scripts.forEach(script => {
+        const s = script as HTMLScriptElement;
+        if (!s.src.includes('critical') && !s.textContent?.includes('critical')) {
+          s.defer = true;
+        }
+      });
+    }
   };
 
   optimizeImages();
@@ -147,40 +149,46 @@ export const optimizeCLS = () => {
   // 1. Set dimensions for images and videos
   const setDimensions = () => {
     const mediaElements = document.querySelectorAll('img, video, iframe');
-    mediaElements.forEach(element => {
-      if (!element.hasAttribute('width') || !element.hasAttribute('height')) {
-        const rect = element.getBoundingClientRect();
-        if (rect.width > 0 && rect.height > 0) {
-          element.setAttribute('width', Math.round(rect.width).toString());
-          element.setAttribute('height', Math.round(rect.height).toString());
+    if (mediaElements && typeof mediaElements.forEach === 'function') {
+      mediaElements.forEach(element => {
+        if (!element.hasAttribute('width') || !element.hasAttribute('height')) {
+          const rect = element.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) {
+            element.setAttribute('width', Math.round(rect.width).toString());
+            element.setAttribute('height', Math.round(rect.height).toString());
+          }
         }
-      }
-    });
+      });
+    }
   };
 
   // 2. Reserve space for dynamic content
   const reserveSpaceForDynamic = () => {
     // Add skeleton loaders for dynamic content
     const dynamicContainers = document.querySelectorAll('[data-dynamic]');
-    dynamicContainers.forEach(container => {
-      if (!container.hasAttribute('data-skeleton')) {
-        const skeleton = document.createElement('div');
-        skeleton.className = 'animate-pulse bg-muted rounded';
-        (skeleton as HTMLElement).style.height = container.getAttribute('data-height') || '200px';
-        skeleton.setAttribute('data-skeleton', 'true');
-        container.appendChild(skeleton);
-      }
-    });
+    if (dynamicContainers && typeof dynamicContainers.forEach === 'function') {
+      dynamicContainers.forEach(container => {
+        if (!container.hasAttribute('data-skeleton')) {
+          const skeleton = document.createElement('div');
+          skeleton.className = 'animate-pulse bg-muted rounded';
+          (skeleton as HTMLElement).style.height = container.getAttribute('data-height') || '200px';
+          skeleton.setAttribute('data-skeleton', 'true');
+          container.appendChild(skeleton);
+        }
+      });
+    }
   };
 
   // 3. Avoid inserting content above existing content
   const avoidContentInsertion = () => {
     // Use transform instead of changing top/left properties
     const animatedElements = document.querySelectorAll('[data-animate]');
-    animatedElements.forEach(element => {
-      (element as HTMLElement).style.transform = 'translateY(0)';
-      (element as HTMLElement).style.transition = 'transform 0.3s ease';
-    });
+    if (animatedElements && typeof animatedElements.forEach === 'function') {
+      animatedElements.forEach(element => {
+        (element as HTMLElement).style.transform = 'translateY(0)';
+        (element as HTMLElement).style.transition = 'transform 0.3s ease';
+      });
+    }
   };
 
   setDimensions();
@@ -229,13 +237,15 @@ export const preloadCriticalResources = () => {
     '/hero-image.jpg'
   ];
 
-  criticalImages.forEach(src => {
-    const imgPreload = document.createElement('link');
-    imgPreload.rel = 'preload';
-    imgPreload.href = src;
-    imgPreload.as = 'image';
-    document.head.appendChild(imgPreload);
-  });
+  if (criticalImages && typeof criticalImages.forEach === 'function') {
+    criticalImages.forEach(src => {
+      const imgPreload = document.createElement('link');
+      imgPreload.rel = 'preload';
+      imgPreload.href = src;
+      imgPreload.as = 'image';
+      document.head.appendChild(imgPreload);
+    });
+  }
 };
 
 // Main optimization function
@@ -259,17 +269,19 @@ export const optimizeWebVitals = () => {
   // Monitor performance
   if ('PerformanceObserver' in window) {
     const observer = new PerformanceObserver((list) => {
-      list.getEntries().forEach((entry) => {
-        if (entry.entryType === 'largest-contentful-paint') {
-          console.log('LCP:', entry.startTime);
-        } else if (entry.entryType === 'first-contentful-paint') {
-          console.log('FCP:', entry.startTime);
-        } else if (entry.entryType === 'layout-shift') {
-          if (!(entry as any).hadRecentInput) {
-            console.log('CLS:', (entry as any).value);
+      if (list && list.getEntries && typeof list.getEntries().forEach === 'function') {
+        list.getEntries().forEach((entry) => {
+          if (entry.entryType === 'largest-contentful-paint') {
+            console.log('LCP:', entry.startTime);
+          } else if (entry.entryType === 'first-contentful-paint') {
+            console.log('FCP:', entry.startTime);
+          } else if (entry.entryType === 'layout-shift') {
+            if (!(entry as any).hadRecentInput) {
+              console.log('CLS:', (entry as any).value);
+            }
           }
-        }
-      });
+        });
+      }
     });
 
     observer.observe({ entryTypes: ['largest-contentful-paint', 'first-contentful-paint', 'layout-shift'] });

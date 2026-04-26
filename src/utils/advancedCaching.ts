@@ -137,11 +137,13 @@ class AdvancedCacheManager {
     let newest = 0;
     let totalSize = 0;
     
-    this.cache.forEach((entry) => {
-      oldest = Math.min(oldest, entry.timestamp);
-      newest = Math.max(newest, entry.timestamp);
-      totalSize += this.getEntrySize(entry);
-    });
+    if (this.cache && typeof this.cache.forEach === 'function') {
+      this.cache.forEach((entry) => {
+        oldest = Math.min(oldest, entry.timestamp);
+        newest = Math.max(newest, entry.timestamp);
+        totalSize += this.getEntrySize(entry);
+      });
+    }
     
     this.stats = {
       hits: this.stats.hits,
@@ -295,7 +297,9 @@ class AdvancedCacheManager {
   }
   
   async clear(): Promise<void> {
-    this.cache.clear();
+    if (this.cache && typeof this.cache.clear === 'function') {
+      this.cache.clear();
+    }
     this.updateStats();
     this.saveCache();
   }
@@ -460,15 +464,17 @@ export const cachePerformanceMonitor = {
   optimizeCache: () => {
     const stats = cachePerformanceMonitor.measureCachePerformance();
     
-    Object.entries(stats).forEach(([type, stat]) => {
-      if (stat.hitRate < 0.5) {
-        console.warn(`Low hit rate for ${type} cache: ${stat.hitRate}`);
-      }
-      
-      if (stat.size > 80 * 1024 * 1024) { // 80MB
-        console.warn(`High memory usage for ${type} cache: ${stat.size} bytes`);
-      }
-    });
+    if (stats && typeof Object.entries === 'function') {
+      Object.entries(stats).forEach(([type, stat]) => {
+        if (stat.hitRate < 0.5) {
+          console.warn(`Low hit rate for ${type} cache: ${stat.hitRate}`);
+        }
+        
+        if (stat.size > 80 * 1024 * 1024) { // 80MB
+          console.warn(`High memory usage for ${type} cache: ${stat.size} bytes`);
+        }
+      });
+    }
   }
 };
 

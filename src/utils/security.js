@@ -142,9 +142,11 @@ export const preventSQLInjection = (input) => {
   ];
   
   let sanitized = input;
-  sqlPatterns.forEach(pattern => {
-    sanitized = sanitized.replace(pattern, '');
-  });
+  if (sqlPatterns && typeof sqlPatterns.forEach === 'function') {
+    sqlPatterns.forEach(pattern => {
+      sanitized = sanitized.replace(pattern, '');
+    });
+  }
   
   return sanitized.trim();
 };
