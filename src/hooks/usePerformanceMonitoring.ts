@@ -62,8 +62,12 @@ const usePerformanceMonitoring = () => {
 
     return () => {
       // Cleanup observers
-      observersRef.current.forEach(observer => observer.disconnect());
-      observersRef.current.clear();
+      if (observersRef.current && typeof observersRef.current.forEach === 'function') {
+        observersRef.current.forEach(observer => observer.disconnect());
+      }
+      if (observersRef.current && typeof observersRef.current.clear === 'function') {
+        observersRef.current.clear();
+      }
     };
   }, []);
 
@@ -292,7 +296,9 @@ const usePerformanceMonitoring = () => {
       });
 
       observer.observe({ entryTypes: ['longtask'] });
-      observersRef.current.add(observer);
+      if (observersRef.current && typeof observersRef.current.add === 'function') {
+        observersRef.current.add(observer);
+      }
     } catch (error) {
       console.warn('Long task monitoring not supported:', error);
     }

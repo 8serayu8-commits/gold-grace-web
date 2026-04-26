@@ -57,13 +57,15 @@ export const optimizeFCP = () => {
   const minimizeCriticalResources = () => {
     // Add resource hints for images
     const images = document.querySelectorAll('img[data-src]');
-    images.forEach(img => {
-      const imgPreload = document.createElement('link');
-      imgPreload.rel = 'preload';
-      imgPreload.href = (img as HTMLElement).dataset.src!;
-      imgPreload.as = 'image';
-      document.head.appendChild(imgPreload);
-    });
+    if (images && typeof images.forEach === 'function') {
+      images.forEach(img => {
+        const imgPreload = document.createElement('link');
+        imgPreload.rel = 'preload';
+        imgPreload.href = (img as HTMLElement).dataset.src!;
+        imgPreload.as = 'image';
+        document.head.appendChild(imgPreload);
+      });
+    }
   };
 
   optimizeRenderBlocking();
@@ -76,30 +78,32 @@ export const optimizeLCP = () => {
   // 1. Optimize images
   const optimizeImages = () => {
     const images = document.querySelectorAll('img');
-    images.forEach(img => {
-      // Add loading="lazy" to below-the-fold images
-      if (!img.hasAttribute('loading') && !isInViewport(img)) {
-        img.setAttribute('loading', 'lazy');
-      }
-
-      // Add proper dimensions to prevent layout shift
-      if (!img.hasAttribute('width') || !img.hasAttribute('height')) {
-        const rect = img.getBoundingClientRect();
-        if (rect.width > 0 && rect.height > 0) {
-          img.setAttribute('width', Math.round(rect.width).toString());
-          img.setAttribute('height', Math.round(rect.height).toString());
+    if (images && typeof images.forEach === 'function') {
+      images.forEach(img => {
+        // Add loading="lazy" to below-the-fold images
+        if (!img.hasAttribute('loading') && !isInViewport(img)) {
+          img.setAttribute('loading', 'lazy');
         }
-      }
 
-      // Optimize image formats
-      if (img.src && img.src.includes('.jpg') || img.src.includes('.jpeg')) {
-        // Consider WebP format for better compression
-        const webpSrc = img.src.replace(/\.(jpg|jpeg)$/i, '.webp');
-        if (supportsWebP()) {
-          img.src = webpSrc;
+        // Add proper dimensions to prevent layout shift
+        if (!img.hasAttribute('width') || !img.hasAttribute('height')) {
+          const rect = img.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) {
+            img.setAttribute('width', Math.round(rect.width).toString());
+            img.setAttribute('height', Math.round(rect.height).toString());
+          }
         }
-      }
-    });
+
+        // Optimize image formats
+        if (img.src && img.src.includes('.jpg') || img.src.includes('.jpeg')) {
+          // Consider WebP format for better compression
+          const webpSrc = img.src.replace(/\.(jpg|jpeg)$/i, '.webp');
+          if (supportsWebP()) {
+            img.src = webpSrc;
+          }
+        }
+      });
+    }
   };
 
   // 2. Optimize text rendering
