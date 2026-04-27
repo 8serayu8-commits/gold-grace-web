@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 
 interface ABTestVariant {
   id: string;
@@ -36,7 +36,7 @@ const useABTesting = () => {
   const [userVariants, setUserVariants] = useState<Record<string, string>>({});
 
   // Define A/B tests
-  const abTests: ABTest[] = [
+  const abTests = useMemo<ABTest[]>(() => [
     {
       id: 'homepage_hero_cta',
       name: 'Homepage Hero CTA Button',
@@ -127,43 +127,16 @@ const useABTesting = () => {
         },
       ],
     },
-  ];
+  ], []);
 
-  // Initialize A/B testing
-  useEffect(() => {
-    initializeABTesting();
-  }, []);
-
-  const initializeABTesting = () => {
-    // Load active tests from API or use local config
-    setActiveTests(abTests);
-    
-    // Assign user to variants for each test
-    const variants: Record<string, string> = {};
-    const userId = getUserId();
-    
-    abTests.forEach(test => {
-      if (shouldIncludeInTest(test)) {
-        variants[test.id] = assignVariant(test, userId);
-      }
-    });
-    
-    setUserVariants(variants);
-    
-    // Track test participation
-    Object.entries(variants).forEach(([testId, variantId]) => {
-      trackTestParticipation(testId, variantId);
-    });
-  };
-
-  const getUserId = () => {
+  const getUserId = useCallback(() => {
     let userId = localStorage.getItem('ab_testing_user_id');
     if (!userId) {
       userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       localStorage.setItem('ab_testing_user_id', userId);
     }
     return userId;
-  };
+  }, []);
 
   const shouldIncludeInTest = (test: ABTest): boolean => {
     // Check traffic allocation
@@ -239,7 +212,7 @@ const useABTesting = () => {
     return Math.abs(hash);
   };
 
-  const trackTestParticipation = (testId: string, variantId: string) => {
+  const trackTestParticipation = useCallback((testId: string, variantId: string) => {
     const result: ABTestResult = {
       testId,
       variantId,
@@ -266,7 +239,34 @@ const useABTesting = () => {
     }).catch(error => {
       console.warn('Failed to track A/B test participation:', error);
     });
-  };
+  }, [getUserId]);
+
+  const initializeABTesting = useCallback(() => {
+    // Load active tests from API or use local config
+    setActiveTests(abTests);
+
+    // Assign user to variants for each test
+    const variants: Record<string, string> = {};
+    const userId = getUserId();
+
+    abTests.forEach(test => {
+      if (shouldIncludeInTest(test)) {
+        variants[test.id] = assignVariant(test, userId);
+      }
+    });
+
+    setUserVariants(variants);
+
+    // Track test participation
+    Object.entries(variants).forEach(([testId, variantId]) => {
+      trackTestParticipation(testId, variantId);
+    });
+  }, [abTests, getUserId, trackTestParticipation]);
+
+  // Initialize A/B testing
+  useEffect(() => {
+    initializeABTesting();
+  }, [initializeABTesting]);
 
   const trackConversion = useCallback((testId: string, conversionType: string, value?: number) => {
     const variantId = userVariants[testId];
@@ -324,7 +324,7 @@ const useABTesting = () => {
     
     // Track forced variant assignment
     trackTestParticipation(testId, variantId);
-  }, []);
+  }, [trackTestParticipation]);
 
   const getTestResults = useCallback(async (testId: string) => {
     try {
