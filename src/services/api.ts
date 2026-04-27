@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+// Vercel-first API routing. You can override with VITE_API_URL for local Express.
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -25,6 +26,8 @@ export interface ContactFormData {
   message: string;
   phone?: string;
   company?: string;
+  subject?: string;
+  attachments?: string;
 }
 
 // Google Drive service types
@@ -55,22 +58,20 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
 };
 
 export const sendContactEmail = async (formData: ContactFormData): Promise<void> => {
-  const emailData: EmailData = {
-    to: 'info@jadtraconsulting.com',
-    subject: `New Contact Form Submission from ${formData.name}`,
-    body: `
-      Name: ${formData.name}
-      Email: ${formData.email}
-      Phone: ${formData.phone || 'Not provided'}
-      Company: ${formData.company || 'Not provided'}
-      
-      Message:
-      ${formData.message}
-    `,
-    replyTo: formData.email,
-  };
-
-  return sendEmail(emailData);
+  try {
+    await api.post('/contact', {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      company: formData.company,
+      subject: formData.subject || `New Contact Form Submission from ${formData.name}`,
+      message: formData.message,
+      attachments: formData.attachments,
+    });
+  } catch (error) {
+    console.error('Error submitting contact form:', error);
+    throw error;
+  }
 };
 
 // Google Drive API functions

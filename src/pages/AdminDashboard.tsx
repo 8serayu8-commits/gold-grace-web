@@ -35,6 +35,12 @@ const AdminDashboard = () => {
 
   const navigate = useNavigate();
 
+  const formatDateSafe = (dateValue?: string) => {
+    if (!dateValue) return '-';
+    const parsedDate = new Date(dateValue);
+    return Number.isNaN(parsedDate.getTime()) ? '-' : parsedDate.toLocaleDateString();
+  };
+
   useEffect(() => {
     // Get current session (ProtectedRoute ensures user is authenticated)
     const getCurrentUser = async () => {
@@ -295,7 +301,7 @@ const AdminDashboard = () => {
                           </p>
                           <p className="text-sm text-gray-500 truncate">{article.excerpt}</p>
                           <p className="text-xs text-gray-400">
-                            {new Date(article.created_at).toLocaleDateString()}
+                            {formatDateSafe(article.created_at)}
                           </p>
                         </div>
                         <div className="flex-shrink-0">
@@ -340,7 +346,7 @@ const AdminDashboard = () => {
                           </p>
                           <p className="text-sm text-gray-500 truncate">{contact.email}</p>
                           <p className="text-xs text-gray-400">
-                            {new Date(contact.created_at).toLocaleDateString()}
+                            {formatDateSafe(contact.created_at)}
                           </p>
                         </div>
                         <div className="flex-shrink-0">

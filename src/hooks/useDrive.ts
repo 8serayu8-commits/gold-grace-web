@@ -2,11 +2,17 @@ import { useState } from 'react';
 import { uploadToDrive, listDriveFiles, deleteDriveFile, DriveFile, UploadResult } from '@/services/api';
 
 export const useDrive = () => {
+  const driveUploadEnabled = import.meta.env.VITE_ENABLE_DRIVE_UPLOAD === 'true';
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [files, setFiles] = useState<DriveFile[]>([]);
 
   const uploadFile = async (file: File, folderId?: string): Promise<UploadResult | null> => {
+    if (!driveUploadEnabled) {
+      setError('File upload is temporarily disabled in this environment.');
+      return null;
+    }
+
     setLoading(true);
     setError(null);
 
@@ -23,6 +29,11 @@ export const useDrive = () => {
   };
 
   const fetchFiles = async (folderId?: string) => {
+    if (!driveUploadEnabled) {
+      setError('File browser is temporarily disabled in this environment.');
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
@@ -38,6 +49,11 @@ export const useDrive = () => {
   };
 
   const deleteFile = async (fileId: string) => {
+    if (!driveUploadEnabled) {
+      setError('File deletion is temporarily disabled in this environment.');
+      return;
+    }
+
     setLoading(true);
     setError(null);
 

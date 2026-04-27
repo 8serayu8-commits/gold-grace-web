@@ -173,10 +173,21 @@ const AdminArticles = () => {
     setEditingArticle(null);
   };
 
+  const formatDateSafe = (dateValue?: string) => {
+    if (!dateValue) return 'Not published';
+    const parsedDate = new Date(dateValue);
+    return Number.isNaN(parsedDate.getTime()) ? 'Not published' : parsedDate.toLocaleDateString();
+  };
+
   const filteredArticles = articles.filter(article => {
-    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         article.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         article.author.toLowerCase().includes(searchTerm.toLowerCase());
+    const normalizedSearchTerm = searchTerm.toLowerCase();
+    const authorText = article.author || '';
+    const excerptText = article.excerpt || '';
+    const titleText = article.title || '';
+
+    const matchesSearch = titleText.toLowerCase().includes(normalizedSearchTerm) ||
+                         excerptText.toLowerCase().includes(normalizedSearchTerm) ||
+                         authorText.toLowerCase().includes(normalizedSearchTerm);
     
     const matchesStatus = statusFilter === 'all' || article.status === statusFilter;
     
@@ -381,7 +392,7 @@ const AdminArticles = () => {
                             {article.excerpt}
                           </div>
                           <div className="flex gap-2 mt-1">
-                            {article.tags.map((tag) => (
+                            {(Array.isArray(article.tags) ? article.tags : []).map((tag) => (
                               <span
                                 key={tag}
                                 className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800"
@@ -395,7 +406,7 @@ const AdminArticles = () => {
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
                           <User className="w-4 h-4 text-gray-400" />
-                          <span className="text-sm text-gray-900">{article.author}</span>
+                          <span className="text-sm text-gray-900">{article.author || 'Unknown'}</span>
                         </div>
                       </td>
                       <td className="px-6 py-4">
@@ -407,7 +418,7 @@ const AdminArticles = () => {
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2 text-sm text-gray-500">
                           <Calendar className="w-4 h-4" />
-                          {new Date(article.published_at).toLocaleDateString()}
+                          {formatDateSafe(article.published_at)}
                         </div>
                       </td>
                       <td className="px-6 py-4">
