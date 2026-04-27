@@ -32,92 +32,16 @@ const usePerformanceMonitoring = () => {
   const metricsRef = useRef<Partial<PerformanceMetrics>>({});
   const observersRef = useRef<Set<PerformanceObserver>>(new Set());
 
-  // Load Web Vitals library with optimized loading
-  useEffect(() => {
-    // Use requestIdleCallback for non-blocking loading
-    const loadWebVitals = () => {
-      const script = document.createElement('script');
-      script.src = 'https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js';
-      script.async = true;
-      script.defer = true; // Add defer for better loading
-      script.onload = () => {
-        // Initialize after script loads
-        requestIdleCallback(() => {
-          initializeWebVitals();
-        });
-      };
-      script.onerror = () => {
-        console.warn('Failed to load Web Vitals library');
-      };
-      document.head.appendChild(script);
-    };
-
-    // Load Web Vitals after critical resources
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(loadWebVitals, { timeout: 3000 });
-    } else {
-      // Fallback for browsers without requestIdleCallback
-      setTimeout(loadWebVitals, 1000);
+  const getSessionId = useCallback(() => {
+    let sessionId = sessionStorage.getItem('analytics_session_id');
+    if (!sessionId) {
+      sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      sessionStorage.setItem('analytics_session_id', sessionId);
     }
-
-    return () => {
-      // Cleanup observers
-      if (observersRef.current && typeof observersRef.current.forEach === 'function') {
-        observersRef.current.forEach(observer => observer.disconnect());
-      }
-      if (observersRef.current && typeof observersRef.current.clear === 'function') {
-        observersRef.current.clear();
-      }
-    };
+    return sessionId;
   }, []);
 
-  const initializeWebVitals = () => {
-    if (!window.webVitals) return;
-
-    // Track Core Web Vitals
-    window.webVitals.getCLS((metric) => {
-      metricsRef.current.CLS = metric.value;
-      sendMetricToAnalytics('CLS', metric);
-    });
-
-    window.webVitals.getFID((metric) => {
-      metricsRef.current.FID = metric.value;
-      sendMetricToAnalytics('FID', metric);
-    });
-
-    window.webVitals.getFCP((metric) => {
-      metricsRef.current.FCP = metric.value;
-      sendMetricToAnalytics('FCP', metric);
-    });
-
-    window.webVitals.getLCP((metric) => {
-      metricsRef.current.LCP = metric.value;
-      sendMetricToAnalytics('LCP', metric);
-    });
-
-    window.webVitals.getTTFB((metric) => {
-      metricsRef.current.TTFB = metric.value;
-      sendMetricToAnalytics('TTFB', metric);
-    });
-  };
-
-  const sendMetricToAnalytics = (metricName: string, metric: WebVitalsData) => {
-    // Send to Google Analytics
-    if (window.gtag) {
-      window.gtag('event', metricName, {
-        event_category: 'Web Vitals',
-        event_label: metric.id,
-        value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
-        non_interaction: true,
-        custom_parameter_1: metric.rating,
-      });
-    }
-
-    // Send to custom analytics endpoint
-    sendToCustomAnalytics(metricName, metric);
-  };
-
-  const sendToCustomAnalytics = (metricName: string, metric: WebVitalsData) => {
+  const sendToCustomAnalytics = useCallback((metricName: string, metric: WebVitalsData) => {
     const payload = {
       metric: metricName,
       value: metric.value,
@@ -201,16 +125,93 @@ const usePerformanceMonitoring = () => {
       // Use setTimeout as fallback
       setTimeout(sendAnalytics, 0);
     }
-  };
+  }, [getSessionId]);
 
-  const getSessionId = () => {
-    let sessionId = sessionStorage.getItem('analytics_session_id');
-    if (!sessionId) {
-      sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      sessionStorage.setItem('analytics_session_id', sessionId);
+  const sendMetricToAnalytics = useCallback((metricName: string, metric: WebVitalsData) => {
+    // Send to Google Analytics
+    if (window.gtag) {
+      window.gtag('event', metricName, {
+        event_category: 'Web Vitals',
+        event_label: metric.id,
+        value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+        non_interaction: true,
+        custom_parameter_1: metric.rating,
+      });
     }
-    return sessionId;
-  };
+
+    // Send to custom analytics endpoint
+    sendToCustomAnalytics(metricName, metric);
+  }, [sendToCustomAnalytics]);
+
+  const initializeWebVitals = useCallback(() => {
+    if (!window.webVitals) return;
+
+    // Track Core Web Vitals
+    window.webVitals.getCLS((metric) => {
+      metricsRef.current.CLS = metric.value;
+      sendMetricToAnalytics('CLS', metric);
+    });
+
+    window.webVitals.getFID((metric) => {
+      metricsRef.current.FID = metric.value;
+      sendMetricToAnalytics('FID', metric);
+    });
+
+    window.webVitals.getFCP((metric) => {
+      metricsRef.current.FCP = metric.value;
+      sendMetricToAnalytics('FCP', metric);
+    });
+
+    window.webVitals.getLCP((metric) => {
+      metricsRef.current.LCP = metric.value;
+      sendMetricToAnalytics('LCP', metric);
+    });
+
+    window.webVitals.getTTFB((metric) => {
+      metricsRef.current.TTFB = metric.value;
+      sendMetricToAnalytics('TTFB', metric);
+    });
+  }, [sendMetricToAnalytics]);
+
+  // Load Web Vitals library with optimized loading
+  useEffect(() => {
+    // Use requestIdleCallback for non-blocking loading
+    const loadWebVitals = () => {
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js';
+      script.async = true;
+      script.defer = true; // Add defer for better loading
+      script.onload = () => {
+        // Initialize after script loads
+        requestIdleCallback(() => {
+          initializeWebVitals();
+        });
+      };
+      script.onerror = () => {
+        console.warn('Failed to load Web Vitals library');
+      };
+      document.head.appendChild(script);
+    };
+
+    // Load Web Vitals after critical resources
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadWebVitals, { timeout: 3000 });
+    } else {
+      // Fallback for browsers without requestIdleCallback
+      setTimeout(loadWebVitals, 1000);
+    }
+
+    return () => {
+      // Cleanup observers
+      const observers = observersRef.current;
+      if (observers && typeof observers.forEach === 'function') {
+        observers.forEach(observer => observer.disconnect());
+      }
+      if (observers && typeof observers.clear === 'function') {
+        observers.clear();
+      }
+    };
+  }, [initializeWebVitals]);
 
   // Monitor page load performance
   const trackPageLoad = useCallback(() => {
